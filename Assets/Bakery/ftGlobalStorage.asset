@@ -411,7 +411,8 @@ MonoBehaviour:
   - Assets/Andres/Testcube.fbx
   - Assets/Andres/Sad Object.fbx
   - Assets/Andres/Susanne.fbx
-  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff00000000
+  - Assets/Andres/ExhibitionSpace1.fbx
+  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff0000000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
   gpuName: NVIDIA GeForce RTX 2060
