@@ -791,7 +791,14 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
+<<<<<<< Updated upstream
   scriptingDefineSymbols: {}
+=======
+  scriptingDefineSymbols:
+    Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_INPUT_SYSTEM_POSE_CONTROL
+    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;USE_INPUT_SYSTEM_POSE_CONTROL;BAKERY_INCLUDED
+    Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;USE_INPUT_SYSTEM_POSE_CONTROL
+>>>>>>> Stashed changes
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
