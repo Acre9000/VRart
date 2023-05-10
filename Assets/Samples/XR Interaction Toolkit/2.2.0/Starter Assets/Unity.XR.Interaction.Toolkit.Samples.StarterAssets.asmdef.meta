@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 fileFormatVersion: 2
 guid: 8f07e33567e0ee542b40769c456c6b53
 AssemblyDefinitionImporter:
@@ -6,6 +7,15 @@ AssemblyDefinitionImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: 8f07e33567e0ee542b40769c456c6b53
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> main
 =======
 fileFormatVersion: 2
 guid: 8f07e33567e0ee542b40769c456c6b53

@@ -1,6 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This sample of beautiful emojis are provided by EmojiOne https://www.emojione.com/
 
+=======
+This sample of beautiful emojis are provided by EmojiOne https://www.emojione.com/
+
+>>>>>>> main
 =======
 This sample of beautiful emojis are provided by EmojiOne https://www.emojione.com/
 
