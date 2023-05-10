@@ -21,14 +21,22 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Tex:
+<<<<<<< HEAD
         m_Texture: {fileID: 0}
+=======
+        m_Texture: {fileID: 8900000, guid: 0873af69d42b2144b9a4a9ed7e6180c4, type: 3}
+>>>>>>> main
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Exposure: 1
     - _Hemispherical: 0
+<<<<<<< HEAD
     - _NoTexture: 1
+=======
+    - _NoTexture: 0
+>>>>>>> main
     m_Colors:
     - _MatrixForward: {r: 0, g: 0, b: 1, a: 0}
     - _MatrixRight: {r: 1, g: 0, b: 0, a: 0}
