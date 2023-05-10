@@ -412,7 +412,10 @@ MonoBehaviour:
   - Assets/Andres/Sad Object.fbx
   - Assets/Andres/Susanne.fbx
   - Assets/Andres/ExhibitionSpace1.fbx
-  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff0000000001010000
+  - Assets/Lucas/Base_Blender.fbx
+  - Assets/Lucas/Blender_fish.fbx
+  - Assets/Lucas/Blenderinblender.fbx
+  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff0000000001010000010100000101000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
   gpuName: NVIDIA GeForce RTX 2060
