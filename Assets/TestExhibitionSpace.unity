@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 0873af69d42b2144b9a4a9ed7e6180c4, type: 3}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12511426, g: 0.13698697, b: 0.16175574, a: 1}
+  m_IndirectSpecularColor: {r: 0.12511212, g: 0.13698551, b: 0.16175273, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -360,42 +360,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 649a78b711fcf5d4d82622922a096c7e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69e509245303f6e4c8ce32878f2ef166, type: 3}
---- !u!23 &639111959 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6606347814720052928, guid: 69e509245303f6e4c8ce32878f2ef166,
-    type: 3}
-  m_PrefabInstance: {fileID: 639111958}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &639111960 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -4750266153616442319, guid: 69e509245303f6e4c8ce32878f2ef166,
-    type: 3}
-  m_PrefabInstance: {fileID: 639111958}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &639111961 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1054673551840534743, guid: 69e509245303f6e4c8ce32878f2ef166,
-    type: 3}
-  m_PrefabInstance: {fileID: 639111958}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &639111962 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2226256450759356391, guid: 69e509245303f6e4c8ce32878f2ef166,
-    type: 3}
-  m_PrefabInstance: {fileID: 639111958}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &639111963 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3365556516147744829, guid: 69e509245303f6e4c8ce32878f2ef166,
-    type: 3}
-  m_PrefabInstance: {fileID: 639111958}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &639111964 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -7021277693319474480, guid: 69e509245303f6e4c8ce32878f2ef166,
-    type: 3}
-  m_PrefabInstance: {fileID: 639111958}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &742002834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,9 +1293,9 @@ MonoBehaviour:
   - {fileID: 1076018373}
   implicitGroupedObjects:
   - {fileID: 0}
-  - {fileID: 639111962}
-  - {fileID: 639111963}
-  - {fileID: 639111964}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   bounds:
   - m_Center: {x: 0, y: 3.831051, z: 0}
     m_Extent: {x: 35.60163, y: 3.384603, z: 35.601635}
@@ -1367,9 +1331,9 @@ MonoBehaviour:
   rnmMaps2: []
   mapsMode: 
   bakedRenderers:
-  - {fileID: 639111959}
-  - {fileID: 639111960}
-  - {fileID: 639111961}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   bakedIDs: 000000000100000000000000
   bakedScaleOffset:
   - {x: 0.11861496, y: 0.11861496, z: 0.33685288, w: 0.27536452}
@@ -1405,9 +1369,9 @@ MonoBehaviour:
     rnmMaps2: []
     mapsMode: 
     bakedRenderers:
-    - {fileID: 639111959}
-    - {fileID: 639111960}
-    - {fileID: 639111961}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     bakedIDs: 000000000100000000000000
     bakedScaleOffset:
     - {x: 0.11861496, y: 0.11861496, z: 0.33685288, w: 0.27536452}
