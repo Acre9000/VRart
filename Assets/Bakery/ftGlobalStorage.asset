@@ -411,7 +411,19 @@ MonoBehaviour:
   - Assets/Andres/Testcube.fbx
   - Assets/Andres/Sad Object.fbx
   - Assets/Andres/Susanne.fbx
-  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff00000000
+  - Assets/Sara/Saras fbx models/fishing rod model.fbx
+  - Assets/Sara/Saras fbx models/mobile model.fbx
+  - Assets/Sara/Saras fbx models/earring model.fbx
+  - Assets/Sara/Saras fbx models/earring stand model.fbx
+  - Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/Models/Primitive_Torus.fbx
+  - Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/Models/XRControllerRight.fbx
+  - Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/Models/Primitive_Pyramid.fbx
+  - Assets/Andres/Vase.fbx
+  - Assets/ExampleAssets/Models/XRControllerLeft.fbx
+  - Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/Models/Primitive_Wedge.fbx
+  - Assets/ExampleAssets/Models/XRControllerRight.fbx
+  - Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/Models/XRControllerLeft.fbx
+  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff00000000010100000101000001010000000000000000000001010000000000000101000001010000000000000101000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
   gpuName: NVIDIA GeForce RTX 2060
