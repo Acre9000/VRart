@@ -15,7 +15,10 @@ MonoBehaviour:
   modifiedAssetPathList:
   - Assets/Bakery/examples/content/sponza/sponza.FBX
   - Assets/Andres/ExhibitionSpace.fbx
-  modifiedAssetPaddingHash: d6a958ff54d8d203
+  - Assets/Students/tob/BIRD CAGE 2 FINAL.fbx
+  - Assets/Students/tob/BIRD CAGE 1 FINAL.fbx
+  - Assets/Students/zahra/untitled.blend
+  modifiedAssetPaddingHash: d6a958ff54d8d203c2c4d8900cf43a06333614da
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -404,6 +407,49 @@ MonoBehaviour:
     - Inner wall no cut.001
     padding: 010000000200000004000000
     unwrapper: 000000000000000000000000
+  - meshName:
+    - Bottom.002
+    padding: 4a000000
+    unwrapper: 00000000
+  - meshName:
+    - birdCage
+    padding: 5a000000
+    unwrapper: 00000000
+  - meshName:
+    - Torus.006
+    - Torus.005
+    - Torus.004
+    - Torus.003
+    - Torus.002
+    - Torus.001
+    - Plane
+    - Cylinder.014
+    - Cube
+    - Cube.001
+    - Cube.002
+    - Cube.003
+    - Cube.004
+    - Cylinder.013
+    - Cylinder.012
+    - Cylinder.011
+    - Cylinder.010
+    - Cylinder.009
+    - Cylinder.008
+    - Cylinder.007
+    - Cylinder.006
+    - Cylinder.004
+    - Cylinder.003
+    - Cylinder.002
+    - Cylinder.001
+    - Cylinder
+    - Cube.010
+    - Cube.009
+    - Cube.008
+    - Cube.007
+    - Cube.006
+    - Cube.005
+    padding: cb000000cb000000000100008f0000008f0000000001000099000000500000005000000000010000000100000001000000010000850000005a00000000010000000100004f000000860000008c0000000001000000010000000100005e00000071000000460000006b0000006000000000010000000100000001000000010000
+    unwrapper: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
   - Assets/Bakery/examples/content/floor_lamp.FBX
@@ -412,7 +458,108 @@ MonoBehaviour:
   - Assets/Andres/Sad Object.fbx
   - Assets/Andres/Susanne.fbx
   - Assets/Andres/ExhibitionSpace1.fbx
-  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff0000000001010000
+  - Assets/Ida/papkasseversion1.fbx
+  - Assets/Ida/papkasseversion3.fbx
+  - Assets/Ida/caffe.fbx
+  - Assets/Ida/papkasse2fbx.fbx
+  - Assets/Ida/caffemaster2.fbx
+  - Assets/Students/Annika/cinder blocks.fbx
+  - Assets/Students/Annika/Pipes.fbx
+  - Assets/Students/Annika/rocks.fbx
+  - Assets/Students/Annika/surface and fire pit.fbx
+  - Assets/Students/Annika/cauldron.fbx
+  - Assets/Students/Annika/bird toy.fbx
+  - Assets/Students/Annika/Chains.fbx
+  - Assets/Students/Annika/Bird bath 2.2.fbx
+  - Assets/Students/Annika/Plank.fbx
+  - Assets/Karla/ENDELIG kondom pakke.fbx
+  - Assets/Karla/ENDELIGT kondom med bobler.fbx
+  - "Assets/Karla/slangeb\xF8sse.fbx"
+  - Assets/Students/Natasja/Broken tablefan textures refined.fbx
+  - Assets/Students/Natasja/Table fan texture refined.fbx
+  - Assets/Students/Natasja/Shoulder Bag texture refined.fbx
+  - Assets/maria valentin unity/MATHIAS/FODBOLD_STAGE03_NIKE-kopi 2.fbx
+  - Assets/maria valentin unity/MATHIAS/FODBOLD_STAGE02_NIKE-kopi 2.fbx
+  - Assets/maria valentin unity/MATHIAS/FODBOLD_STAGE01_V02_NIKE-kopi 2.fbx
+  - Assets/maria valentin unity/VALKAxMARIA/V4mariaXvalkaUnity.fbx
+  - Assets/Students/Kasper/Door1/Car Door 1.blend
+  - Assets/Students/Kasper/Door3/Door3.fbx
+  - Assets/Students/Kasper/Door2/TEST2.fbx
+  - Assets/Andres/ExhibitionSpace_Reduced.fbx
+  - Assets/Students/Ida/papkasseversion1.fbx
+  - Assets/Students/Ida/papkasseversion3.fbx
+  - Assets/Students/Ida/caffemaster2.fbx
+  - Assets/Students/maria valentin unity/VALKAxMARIA/V4mariaXvalkaUnity.fbx
+  - Assets/Students/Alexander/tennis1.fbx
+  - Assets/Students/Alexander/tennis.fbx
+  - Assets/Students/Andreas/Fbx_andreas/cord_game/NES_cord_phase2.fbx
+  - Assets/Students/Andreas/Fbx_andreas/lys.fbx
+  - Assets/Students/Andreas/Fbx_andreas/nes1/nes_true_texture_sub.fbx
+  - Assets/Students/Andreas/Fbx_andreas/clean_games/clean_games.fbx
+  - Assets/Students/Andreas/Fbx_andreas/controller1/Controller_1texture.fbx
+  - Assets/Students/Andreas/Fbx_andreas/poster.fbx
+  - Assets/Students/Andreas/Fbx_andreas/pipe/pipe.fbx
+  - Assets/Students/Andreas/Fbx_andreas/controller2/Controller_2_texture.fbx
+  - Assets/Students/Andreas/Fbx_andreas/nes3/nes3.fbx
+  - Assets/Students/Blue/Coffin_2.fbx
+  - Assets/Students/Blue/textures/grass_medium_01_2k.blend/grass_medium_01_2k.blend
+  - "Assets/Students/Blue/Coffin_\uFF13.fbx"
+  - Assets/Students/Blue/textures/wood_planks_dirt_2k.blend/wood_planks_dirt_2k.blend
+  - Assets/Students/Blue/textures/dark_wood_2k.blend/dark_wood_2k.blend
+  - Assets/Students/Blue/textures/rust_coarse_01_2k.blend/rust_coarse_01_2k.blend
+  - Assets/Students/Blue/textures/moss_wood_2k.blend/moss_wood_2k.blend
+  - Assets/Students/Blue/Coffin_1.fbx
+  - Assets/Students/Blue/textures/wood_peeling_paint_weathered_2k.blend/wood_peeling_paint_weathered_2k.blend
+  - Assets/Students/Blue/textures/brown_mud_02_2k.blend/brown_mud_02_2k.blend
+  - Assets/Students/Blue/textures/rough_wood_2k.blend/rough_wood_2k.blend
+  - Assets/Students/Camille/gross clock but good.blend
+  - Assets/Students/Camille/clockface fun.fbx
+  - Assets/Students/Camille/best clock love her.blend
+  - Assets/Students/Camille/burny boy 2.fbx
+  - Assets/Students/Clara/scene3/scarecrow scene 3.fbx
+  - Assets/Students/Clara/scene1/small broom scene 1.fbx
+  - Assets/Students/Clara/scene1/case scene 1.fbx
+  - Assets/Students/Clara/scene1/big broom scene 1.fbx
+  - Assets/Students/Clara/scene2/big broom scene 2.fbx
+  - Assets/Students/Clara/scene2/case scene 2.fbx
+  - Assets/Students/Frederik/subTest4.fbx
+  - Assets/Students/Frederik/tapeRoll2.fbx
+  - Assets/Students/Frederik/tapeLoop.fbx
+  - Assets/Students/Frederik/tapeRollHair1.fbx
+  - Assets/Students/Kristian/washer_v2.fbx
+  - Assets/Students/Kristian/washer.fbx
+  - Assets/Students/Kristian/washer_v3.fbx
+  - Assets/Lucas/Blender_fish.fbx
+  - Assets/Lucas/Base_Blender.fbx
+  - Assets/Lucas/Blenderinblender.fbx
+  - Assets/martin/dirtybag.fbx
+  - Assets/martin/bag1.fbx
+  - Assets/bottle_destroyed.fbx
+  - Assets/bottle_repurposed.fbx
+  - Assets/bottle_new.fbx
+  - Assets/Students/Mathilde s/cat-unity-2.fbx
+  - Assets/Students/Sara/SaraObjects/fishing rod/fishing rod Pt fbx.fbx
+  - Assets/Students/Sara/SaraObjects/mobile/mobile Pt2 model.fbx
+  - Assets/Students/Sara/SaraObjects/earring/earring model.fbx
+  - Assets/Students/Sara/SaraObjects/mobile/key Pt model.fbx
+  - Assets/Students/Sara/SaraObjects/earring/earring stand model.fbx
+  - Assets/flaske med blomster.blend
+  - Assets/vin flaske blender.blend
+  - Assets/flaske med visne blomster stage 3blomster.blend
+  - Assets/Students/Thomas/thomas_postapoc_01.fbx
+  - Assets/Students/Thomas/Thomas_present_01.fbx
+  - Assets/Students/Thomas/Thomas_before_01.fbx
+  - Assets/Students/tob/BIRD CAGE 2 FINAL.fbx
+  - Assets/Students/tob/BIRD CAGE 3 FINAL.fbx
+  - Assets/Students/tob/BIRD CAGE 1 FINAL.fbx
+  - Assets/Students/zahra/untitled.blend
+  - Assets/Students/zahra/textures/Materials/dandelion_01_4k.blend
+  - Assets/Students/Sebastian/flaske med visne blomster stage 3blomster.blend
+  - Assets/maria valentin unity/VALKAxMARIA/old game obejcts/V4mariaXvalkaUnity.fbx
+  - Assets/KATRINE ASSETS/VERSION 1.fbx
+  - Assets/KATRINE ASSETS/VERSION 3.fbx
+  - Assets/KATRINE ASSETS/VERSION 2.fbx
+  uvOverlapAssetList: 00000000ffffffff0101000000000000ffffffff00000000010100000101000001010000010100000101000001010000000000000000000000000000010100000101000000000000010100000101000000000000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000000000000000000000101000001010000010100000101000000000000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000000000000000000000000000010100000000000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000010100000101000001010000000000000000000001010000010100000101000001010000010100000101000000000000000000000000000001010000010100000101000001010000010100000101000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
   gpuName: NVIDIA GeForce RTX 2060
@@ -502,7 +649,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 010000000200000004000000
-  modifiedMeshUnwrapperArray: 000000000000000000000000
+  modifiedMeshPaddingArray: cb000000cb000000000100008f0000008f0000000001000099000000500000005000000000010000000100000001000000010000850000005a00000000010000000100004f000000860000008c0000000001000000010000000100005e00000071000000460000006b0000006000000000010000000100000001000000010000
+  modifiedMeshUnwrapperArray: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   texSettingsKey: []
   texSettingsVal: []
