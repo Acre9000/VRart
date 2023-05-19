@@ -14455,7 +14455,7 @@ MonoBehaviour:
   renderSettingsRTPVHDR: 0
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
-  lastBakeTime: 223
+  lastBakeTime: 236
   enlightenWarningShown: 0
   enlightenWarningShown2: 0
   uniqueLights:
@@ -15197,7 +15197,9 @@ MonoBehaviour:
   lightmapHasRNM: 000001
   modifiedAssetPathList: []
   modifiedAssets: []
-  maps: []
+  maps:
+  - {fileID: 2800000, guid: 73f39b8e2ada6af4daf83f0cbc5489ad, type: 3}
+  - {fileID: 2800000, guid: 66489cc5ceb31744b920446354d0ab29, type: 3}
   masks: []
   dirMaps: []
   rnmMaps0: []
@@ -15283,7 +15285,7 @@ MonoBehaviour:
   bakedScaleOffsetTerrain: []
   assetList: []
   uvOverlapAssetList: 
-  idremap: 000000000100000002000000
+  idremap: 0000000001000000
   usesRealtimeGI: 0
   emptyDirectionTex: {fileID: 0}
   anyVolumes: 0
