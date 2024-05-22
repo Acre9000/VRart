@@ -17,7 +17,7 @@ using UnityEditor.SceneManagement;
 public class BakerySectorInspector : Editor
 {
     BoxBoundsHandle boundsHandle = new BoxBoundsHandle(typeof(BakerySectorInspector).GetHashCode());
-    SerializedProperty ftraceCaptureMode, ftraceCaptureAssetName, ftraceCaptureAsset, ftraceAllowUV;
+    SerializedProperty ftraceCaptureMode, ftraceCaptureAssetName, ftraceCaptureAsset, ftraceAllowUV, ftraceBakeLightProbes;
     int curSelectedB = -1;
     int curSelectedC = -1;
     Tool lastTool = Tool.None;
@@ -39,6 +39,7 @@ public class BakerySectorInspector : Editor
         ftraceCaptureAssetName = serializedObject.FindProperty("captureAssetName");
         ftraceCaptureAsset = serializedObject.FindProperty("captureAsset");
         ftraceAllowUV = serializedObject.FindProperty("allowUVPaddingAdjustment");
+        ftraceBakeLightProbes = serializedObject.FindProperty("bakeChildLightProbeGroups");
     }
 
     void RemoveWithUndo()
@@ -118,6 +119,8 @@ public class BakerySectorInspector : Editor
         if (remFunc == null) remFunc = new EditorApplication.CallbackFunction(RemoveWithUndo);
 
         EditorGUILayout.PropertyField(ftraceAllowUV, new GUIContent("Allow UV adjustment", "Allow UV padding adjustment when baking this sector? Disable when having multiple sectors affecting instances of the same mesh to prevent one sector from breaking UVs on another sector."));
+
+        EditorGUILayout.PropertyField(ftraceBakeLightProbes, new GUIContent("Bake light probes", "Bakes child LightProbeGroups."));
 
         if (vol.previewEnabled) GUI.enabled = false;
         EditorGUILayout.PropertyField(ftraceCaptureMode, new GUIContent("Capture mode", "'Capture In Place' will generate outside geometry approximation every time 'Render' is pressed or RTPreview is open. It is a good option for exterior scenes where all sectors are loaded together and visible in the Editor.\n'Capture To Asset' will save approximated outside geometry into a file which can be used in another scene using 'Load Captured'."));

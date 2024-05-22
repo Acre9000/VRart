@@ -21,6 +21,10 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
 using System.Reflection;
+#if UNITY_2021_2_OR_NEWER
+using System.IO.MemoryMappedFiles;
+using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 public class ftRenderLightmap : EditorWindow//ScriptableWizard
 {
@@ -81,6 +85,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         public int shadowmaskGroupID;
         public Vector3 center;
         public BakeryPointLight point;
+        public BakeryLightMesh lightMesh;
 
         public LightBounds(BakeryPointLight p)
         {
@@ -97,8 +102,28 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             bitmask = p.bitmask;
             shadowmaskGroupID = 0;
             center = p.transform.position;
+            lightMesh = p;
         }
     };
+
+    struct SavedLight
+    {
+        public Texture2D tex;
+        public int bitmask;
+        public Color color;
+        public float intensity;
+        public float cutoff;
+        public float indirectIntensity;
+        public int samples;
+        public int samples2;
+        public int accumSamples;
+        public bool selfShadow;
+        public bool bakeToIndirect;
+        public bool shadowmask;
+        public bool shadowmaskFalloff;
+        public int lmid, lid;
+        public string name;
+    }
 
     static bool askedTangentSH = false;
 
@@ -138,6 +163,11 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
     [DllImport("user32.dll")]
     static extern int GetWindowText(System.IntPtr hwnd, StringBuilder text, int count);
+
+#if UNITY_2023_1_OR_NEWER
+    [DllImport("user32.dll")]
+    static extern int GetClassName(System.IntPtr hwnd, StringBuilder text, int count);
+#endif
 
     System.IntPtr unityEditorHWND;
 #endif
@@ -227,7 +257,13 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
     public static BakerySector curSector;
     static string curSectorName;
 
+    public static HashSet<Vector3> sectorProbePosHash = null;
+
     public static int passedFilterFlag = 0;
+
+    public static bool unityInBatchMode = false;
+
+    public static int batchAreaLightSampleLimit = 4096;
 
     enum AdjustUVMode
     {
@@ -244,10 +280,20 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
     public static event System.EventHandler OnFinishedProbes;
     public static event System.EventHandler OnFinishedFullRender;
     public static event System.EventHandler OnFinishedReflectionProbes;
+    public static event System.EventHandler<VolumeEventArgs> OnPreVolumesCompress;
 
     public class ProbeEventArgs : System.EventArgs
     {
         public Vector3 pos { get; set; }
+    }
+
+    public class VolumeEventArgs : System.EventArgs
+    {
+        public float[] L0 { get; set; }
+        public float[] L1x { get; set; }
+        public float[] L1y { get; set; }
+        public float[] L1z { get; set; }
+        public BakeryVolume[] volumes { get; set; }
     }
 
     public static LayerMask forceProbeVisibility;
@@ -338,6 +384,8 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
     BakerySkyLight[] All2;
     BakeryDirectLight[] All3;
 
+    List<bool[]> AllAffectsGroups;
+
     const int PASS_LDR = 1;
     const int PASS_FLOAT = 2;
     const int PASS_HALF = 4;
@@ -349,6 +397,23 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
     const int PASS_RNM1 = 256;
     const int PASS_RNM2 = 512;
     const int PASS_RNM3 = 1024;
+
+#if UNITY_2021_2_OR_NEWER
+    public const int maxTexSettingsSize = 256 * 1024;
+    static System.IO.MemoryMappedFiles.MemoryMappedFile mmfTexProc;
+#endif
+
+    [System.Serializable]
+    public struct Int2
+    {
+        public int x, y;
+
+        public Int2(int _x, int _y)
+        {
+            x = _x;
+            y = _y;
+        }
+    }
 
     Dictionary<string, bool> lmnameComposed;
 
@@ -566,6 +631,19 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                         else if (choice == 2)
                         {
                             gstorage.runsOIDN = true;
+                            EditorUtility.SetDirty(gstorage);
+                        }
+                    }
+                    else if (denoiserType == ftGlobalStorage.DenoiserType.OpenImageDenoise2 && !gstorage.runsOIDN2)
+                    {
+                        int choice = EditorUtility.DisplayDialogComplex("Bakery", "This scene has denoiser set to OpenImageDenoise2 (CUDA), but you GPU does not seem to support it (needs at least 16XX or 20XX NVidia GPU). Please change the denoiser or re-run Bakery -> Utilities -> Detect optimal settings.", "OK", "Ignore", "Ignore forever");
+                        if (choice == 0)
+                        {
+                            return false;
+                        }
+                        else if (choice == 2)
+                        {
+                            gstorage.runsOIDN2 = true;
                             EditorUtility.SetDirty(gstorage);
                         }
                     }
@@ -1170,6 +1248,28 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         showProgressBar = true;
     }
 
+    public bool TestNeedsBenchmark()
+    {
+        if (!foundCompatibleSetup && verbose)
+        {
+            if (gstorage != null) gstorage.foundCompatibleSetup = true;
+            foundCompatibleSetup = true;
+            int answer = EditorUtility.DisplayDialogComplex("Bakery", "Would you like to automatically detect optimal settings for your hardware? You can also do it later via Bakery/Utilities/Detect optimal settings", "Yes", "No", "Never");
+            if (answer == 0)
+            {
+                ftDetectSettings.DetectCompatSettings();
+                return true;
+            }
+            else if (answer == 2)
+            {
+                gstorage.foundCompatibleSetup = foundCompatibleSetup = true;
+                gstorage.gpuName = SystemInfo.graphicsDeviceName;
+                EditorUtility.SetDirty(gstorage);
+            }
+        }
+        return false;
+    }
+
     public void RenderButton(bool showMsgWindows = true)
     {
         ValidateOutputPath();
@@ -1195,23 +1295,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         }
         else
         {
-            if (!foundCompatibleSetup && verbose)
-            {
-                if (gstorage != null) gstorage.foundCompatibleSetup = true;
-                foundCompatibleSetup = true;
-                int answer = EditorUtility.DisplayDialogComplex("Bakery", "Would you like to automatically detect optimal settings for your hardware? You can also do it later via Bakery/Utilities/Detect optimal settings", "Yes", "No", "Never");
-                if (answer == 0)
-                {
-                    ftDetectSettings.DetectCompatSettings();
-                    return;
-                }
-                else if (answer == 2)
-                {
-                    gstorage.foundCompatibleSetup = foundCompatibleSetup = true;
-                    gstorage.gpuName = SystemInfo.graphicsDeviceName;
-                    EditorUtility.SetDirty(gstorage);
-                }
-            }
+            if (TestNeedsBenchmark()) return;
         }
 
         if (pstorage == null) pstorage = ftLightmaps.GetProjectSettings();
@@ -1429,7 +1513,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         linkStyle.richText = true;
         var clr = GUI.contentColor;
         GUI.contentColor = Color.blue;
-        GUI.Label(aboutRect, new GUIContent("<color=#5073c9ff><b>Bakery - GPU Lightmapper by Mr F</b></color>", "Version 1.95. Click to go to Bakery Wiki"), linkStyle);
+        GUI.Label(aboutRect, new GUIContent("<color=#5073c9ff><b>Bakery - GPU Lightmapper by Mr F</b></color>", "Version 1.96. Click to go to Bakery Wiki"), linkStyle);
         GUI.Label(aboutRect, new GUIContent("<color=#5073c9ff><b>____________________________</b></color>", "Go to Bakery Wiki"), linkStyle);
         if (Event.current.type == EventType.MouseUp && aboutRect.Contains(Event.current.mousePosition))
         {
@@ -1742,7 +1826,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             }
         }
 
-        GUI.BeginGroup(new Rect(10, y, 300, 380), "Auto-atlasing", headerStyle);
+        GUI.BeginGroup(new Rect(10, y, 300, 450), "Auto-atlasing", headerStyle);
 
         int ay = 20;
 
@@ -2020,6 +2104,14 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
                 if (settingsMode >= SettingsMode.Experimental)
                 {
+                    GUI.BeginGroup(new Rect(xx, y, 300, 300), "Light Mesh batch limit", headerStyle);
+                    GUI.Label(new Rect(10, 20, 70, 15), new GUIContent("" + batchAreaLightSampleLimit, "If this value is above 0, combines many Light Meshes into one, given they have identical settings and affect the same LMGroups, but limiting their total sample count to this value (I.e. if the limit is 64, it can combine 2 lights with samples=32 or 4 lights with samples=16, etc). This will increase performance in scenes with many Light Meshes. Be careful setting this value too high, as the GPU may hit the OS driver timeout while processing too many samples at once."));
+                    batchAreaLightSampleLimit = 1 << (int)GUI.HorizontalSlider(new Rect(50, 20, 170, 15), Mathf.Max(Mathf.Log(batchAreaLightSampleLimit)/Mathf.Log(2),7.0f), 7, 14);
+                    if (batchAreaLightSampleLimit <= 128) batchAreaLightSampleLimit = 0;
+                    GUI.EndGroup();
+
+                    y += 40;
+
 #if UNITY_2020_1_OR_NEWER
                     compressVolumes =
                         GUI.Toggle(new Rect(xx, y, 200, 20), compressVolumes,
@@ -2312,6 +2404,19 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         {
             if (!Application.isPlaying)
             {
+
+                bool isHDRP = false;
+#if UNITY_2019_1_OR_NEWER
+                if (GraphicsSettings.renderPipelineAsset != null)
+                {
+                     var srpType = GraphicsSettings.renderPipelineAsset.GetType().ToString();
+                     if (srpType.Contains("HDRenderPipelineAsset"))
+                     {
+                        isHDRP = true;
+                     }
+                }
+#endif
+
                 ValidateOutputPath();
                 DynamicGI.UpdateEnvironment();
 
@@ -2319,7 +2424,16 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                 var r = rgo.AddComponent<ReflectionProbe>();
                 r.resolution = 256;
                 r.clearFlags = UnityEngine.Rendering.ReflectionProbeClearFlags.Skybox;
-                r.cullingMask = 0;
+                if (isHDRP)
+                {
+                    // HDRP sky is on Default layer, so can't use the culling mask
+                    // Just move the probe far away...
+                    rgo.transform.position = new Vector3(-100000, 0, -100000);
+                }
+                else
+                {
+                    r.cullingMask = 0;
+                }
                 r.mode = UnityEngine.Rendering.ReflectionProbeMode.Custom;
 
                 var assetName = GenerateLightingDataAssetName();
@@ -2408,7 +2522,11 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             scenePathToSave = "";
         }
 
-        if (renderSettingsStorage == null) return;
+        if (renderSettingsStorage == null)
+        {
+            renderSettingsStorage = FindRenderSettingsStorage();
+            if (renderSettingsStorage == null) return;
+        }
 
         FindGlobalStorage();
         if (gstorage != null)
@@ -2494,6 +2612,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             //renderSettingsStorage.renderSettingsLegacyDenoiser != legacyDenoiser ||
             renderSettingsStorage.renderSettingsAtlasPacker != ftBuildGraphics.atlasPacker ||
             renderSettingsStorage.renderSettingsCompressVolumes != compressVolumes ||
+            renderSettingsStorage.renderSettingsBatchAreaLightSampleLimit != batchAreaLightSampleLimit ||
             renderSettingsStorage.renderSettingsSector != curSector
             )
         {
@@ -2571,6 +2690,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             //renderSettingsStorage.renderSettingsLegacyDenoiser = (denoiserType == ftGlobalStorage.DenoiserType.Optix5);//legacyDenoiser;
             renderSettingsStorage.renderSettingsAtlasPacker = ftBuildGraphics.atlasPacker;
             renderSettingsStorage.renderSettingsCompressVolumes = compressVolumes;
+            renderSettingsStorage.renderSettingsBatchAreaLightSampleLimit = batchAreaLightSampleLimit;
             renderSettingsStorage.renderSettingsSector = curSector;
         }
     }
@@ -2716,6 +2836,17 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             }
             if (ok)
             {
+                var eventArgs = new VolumeEventArgs();
+                if (OnPreVolumesCompress != null)
+                {
+                    eventArgs.L0 = l0;
+                    eventArgs.L1x = l1x;
+                    eventArgs.L1y = l1y;
+                    eventArgs.L1z = l1z;
+                    eventArgs.volumes = vols;
+                    OnPreVolumesCompress.Invoke(this, eventArgs);
+                }
+
                 int i = 0;
                 int maskI = 0;
                 bool actuallyCompressVolumes = false;
@@ -2829,9 +2960,9 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
                                     if (actuallyCompressVolumes)
                                     {
-                                        float il0r = 1.0f / l0r;
-                                        float il0g = 1.0f / l0g;
-                                        float il0b = 1.0f / l0b;
+                                        float il0r = 0.5f / l0r;
+                                        float il0g = 0.5f / l0g;
+                                        float il0b = 0.5f / l0b;
 
                                         l1xr = (l1xr * il0r) * 0.5f + 0.5f;
                                         l1xg = (l1xg * il0g) * 0.5f + 0.5f;
@@ -3534,6 +3665,27 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         return channelA;
     }
 
+    static int GetShadowmaskChannel(BakeryLightMesh a)
+    {
+        int channelA = -1;
+        if (!a.shadowmask) return channelA;
+        var uA = a.GetComponent<Light>();
+        if (uA != null)
+        {
+            var stA = storages[a.gameObject.scene];
+            int indexA = stA.bakedLights.IndexOf(uA);
+            if (indexA >= 0 && indexA < stA.bakedLightChannels.Count)
+            {
+                channelA = stA.bakedLightChannels[indexA];
+            }
+        }
+        else if (a.shadowmask && a.bakeToIndirect) // full+shadowmask mode
+        {
+            channelA = a.maskChannel;
+        }
+        return channelA;
+    }
+
     static int ComparePointLights(BakeryPointLight a, BakeryPointLight b)
     {
         int channelA = GetShadowmaskChannel(a);
@@ -3541,6 +3693,17 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
         int channelB = GetShadowmaskChannel(b);
         float compB = channelB * 10000 + ((b.bakeToIndirect && !b.shadowmask) ? 1000 : 0) + (b.legacySampling ? 100 : 0) + b.indirectIntensity;
+
+        return compB.CompareTo(compA);
+    }
+
+    static int CompareAreaLights(BakeryLightMesh a, BakeryLightMesh b)
+    {
+        int channelA = GetShadowmaskChannel(a);
+        float compA = (a.texture != null ? 100000 : 0) + channelA * 10000 + ((a.bakeToIndirect && !a.shadowmask) ? 1000 : 0) + (a.selfShadow ? 100 : 0) + a.indirectIntensity;
+
+        int channelB = GetShadowmaskChannel(b);
+        float compB = (b.texture != null ? 100000 : 0) + channelB * 10000 + ((b.bakeToIndirect && !b.shadowmask) ? 1000 : 0) + (b.selfShadow ? 100 : 0) + b.indirectIntensity;
 
         return compB.CompareTo(compA);
     }
@@ -3846,7 +4009,6 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             //GameObjectUtility.SetStaticEditorFlags(tempQuad, StaticEditorFlags.LightmapStatic);
 
 #endif
-
             var bakeryRuntimePath = ftLightmaps.GetRuntimePath();
             var tempScenePath = bakeryRuntimePath + "_tempScene.unity";
             sceneSavedTestScene = scene;
@@ -3889,6 +4051,14 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 #endif
             var paths = new string[1];
             paths[0] = tempScenePath;
+            if (!EditorApplication.SaveCurrentSceneIfUserWantsTo())
+            {
+                userCanceled = true;
+                hasAnyProbes = false;
+                RestoreSceneManagerSetup(setup);
+                yield break;
+            }
+
             Lightmapping.BakeMultipleScenes(paths);
             while(Lightmapping.isRunning) yield return null;
 
@@ -4025,6 +4195,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             var objects = Resources.FindObjectsOfTypeAll(typeof(GameObject));
             dynamicObjects = new List<Renderer>();
             var dynAllowMask = forceProbeVisibility.value;
+            ftBuildGraphics.InitTemporaryAreaLightArray();
             foreach (GameObject obj in objects)
             {
                 if (!obj.activeInHierarchy) continue;
@@ -4032,6 +4203,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                 if (path != "") continue; // must belond to scene
                 //if ((obj.hideFlags & (HideFlags.DontSave|HideFlags.HideAndDontSave)) != 0) continue; // skip temp objects
                 //if (obj.tag == "EditorOnly") continue; // skip temp objects
+                ftBuildGraphics.ConvertUnityAreaLight(obj); // convert area light if it exists instead
                 if ((GameObjectUtility.GetStaticEditorFlags(obj) & StaticEditorFlags.LightmapStatic) != 0) continue; // skip static
                 var mr = ftBuildGraphics.GetValidRenderer(obj);
                 if (mr == null) continue; // must have visible mesh
@@ -4238,6 +4410,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                 ftBuildGraphics.modifyLightmapStorage = false;
                 ftBuildGraphics.forceAllAreaLightsSelfshadow = false;
                 ftBuildGraphics.validateLightmapStorageImmutability = false;
+                ftBuildGraphics.autosetAreaLightLMID = true;
                 var exportSceneFunc = ftBuildGraphics.ExportScene((ftRenderLightmap)EditorWindow.GetWindow(typeof(ftRenderLightmap)), false);
                 progressBarEnabled = true;
                 while (exportSceneFunc.MoveNext())
@@ -4732,8 +4905,8 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         yield break;
     }
 
-
-    void RenderLightmapUpdate()
+    // Normally called within EditorApplication.update; Only use it yourself if you know what you're doing.
+    public void RenderLightmapUpdate()
     {
         if (!exeMode)
         {
@@ -4848,6 +5021,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         var groupsSelectors = FindObjectsOfType(typeof(BakeryLightmapGroupSelector)) as BakeryLightmapGroupSelector[];
         for(int i=0; i<groupsSelectors.Length; i++)
         {
+            if (!groupsSelectors[i].active) continue;
             var grp = groupsSelectors[i].lmgroupAsset;
             if (grp != null && fullSectorRender && (grp as BakeryLightmapGroup).passedFilter != passedFilterFlag) continue;
             groups.Add(grp as BakeryLightmapGroup);
@@ -5124,7 +5298,8 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         return true;
     }
 
-	IEnumerator RenderLightmapFunc()
+    // Coroutine. Normally called from RenderLightmapUpdate via EditorApplication.update. Only use it yourself if you know what you're doing.
+	public IEnumerator RenderLightmapFunc()
 	{
         // Basic validation
         if (userRenderMode == RenderMode.Indirect && bounces < 1)
@@ -5167,11 +5342,18 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         }
 
         // Init probes
-        if (lightProbeMode == LightProbeMode.L1 && !selectedOnly && !fullSectorRender)
+        bool renderProbesNow = lightProbeMode == LightProbeMode.L1 && !selectedOnly;
+        if (renderProbesNow && fullSectorRender && curSector != null)
         {
+            renderProbesNow = curSector.bakeChildLightProbeGroups;
+        }
+        if (renderProbesNow)
+        {
+            userCanceled = false;
             var proc = InitializeLightProbes(!probesOnlyL1);
             while(proc.MoveNext()) yield return null;
             if (probesOnlyL1 && !hasAnyProbes) yield break;
+            if (userCanceled) yield break;
         }
 
         // Alloc new data
@@ -5189,6 +5371,57 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         AllP = FindObjectsOfType(typeof(BakeryPointLight)) as BakeryPointLight[];
         All2 = FindObjectsOfType(typeof(BakerySkyLight)) as BakerySkyLight[];
         All3 = FindObjectsOfType(typeof(BakeryDirectLight)) as BakeryDirectLight[];
+
+        if (userRenderMode == RenderMode.Shadowmask && bounces < 1)
+        {
+            bool anyDirect = false;
+            for(int i=0; i<All3.Length; i++)
+            {
+                if (All3[i].bakeToIndirect)
+                {
+                    anyDirect = true;
+                    break;
+                }
+            }
+            if (!anyDirect)
+            {
+                for(int i=0; i<All2.Length; i++)
+                {
+                    if (All2[i].bakeToIndirect)
+                    {
+                        anyDirect = true;
+                        break;
+                    }
+                }
+            }
+            if (!anyDirect)
+            {
+                for(int i=0; i<AllP.Length; i++)
+                {
+                    if (AllP[i].bakeToIndirect)
+                    {
+                        anyDirect = true;
+                        break;
+                    }
+                }
+            }
+            if (!anyDirect)
+            {
+                for(int i=0; i<All.Length; i++)
+                {
+                    if (All[i].bakeToIndirect)
+                    {
+                        anyDirect = true;
+                        break;
+                    }
+                }
+            }
+            if (!anyDirect)
+            {
+                DebugLogError("Can't render shadowmask lightmaps, if bounces < 1 and there are no lights contributing to directional lighting");
+                yield break;
+            }
+        }
 
         // Scene data validation
         if (samplesWarning)
@@ -5307,7 +5540,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
             storage.sectors = newStSectors;
 
-            if (lightProbeMode == LightProbeMode.L1 && !selectedOnly && !fullSectorRender) restoreFromGlobalSector = true;
+            if (renderProbesNow) restoreFromGlobalSector = true;
 
             storage.maps = new List<Texture2D>();
             storage.masks = new List<Texture2D>();
@@ -5416,6 +5649,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             ftBuildGraphics.forceAllAreaLightsSelfshadow = false;
             ftBuildGraphics.validateLightmapStorageImmutability = selectedOnly || probesOnlyL1;
             ftBuildGraphics.sceneNeedsToBeRebuilt = false;
+            ftBuildGraphics.autosetAreaLightLMID = batchAreaLightSampleLimit == 0;
             var exportSceneFunc = ftBuildGraphics.ExportScene((ftRenderLightmap)EditorWindow.GetWindow(typeof(ftRenderLightmap)), true);
             progressBarEnabled = true;
 
@@ -5696,14 +5930,17 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             if (IsLightCompletelyBaked(obj.bakeToIndirect, obj.shadowmask, userRenderMode))
             {
                 MarkLightAsCompletelyBaked(ulht);
+                obj.maskChannel = -1;
             }
             else if (IsLightSubtractive(obj.bakeToIndirect, userRenderMode))
             {
                 MarkLightAsSubtractive(ulht);
+                obj.maskChannel = -1;
             }
             else if (IsLightRealtime(obj.bakeToIndirect, userRenderMode))
             {
                 MarkLightAsRealtime(ulht);
+                obj.maskChannel = -1;
             }
         }
 
@@ -5826,7 +6063,14 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
                 int channelSet = SetupLightShadowmaskUsingBitmask(la, laBitmask, lightsRemainingB[idA].shadowmaskGroupID, channelBitsPerLayer);
                 if (channelSet < 0) someLightsCantBeMasked = true;
-                if (lightsRemainingB[idA].point != null) lightsRemainingB[idA].point.maskChannel = channelSet;
+                if (lightsRemainingB[idA].point != null)
+                {
+                    lightsRemainingB[idA].point.maskChannel = channelSet;
+                }
+                else if (lightsRemainingB[idA].lightMesh != null)
+                {
+                    lightsRemainingB[idA].lightMesh.maskChannel = channelSet;
+                }
 
                 lightChannels[idA] = channelSet;
                 if (la != null) DebugLogInfo("* Light " + la.name + " set to channel " + channelSet);
@@ -5881,7 +6125,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                         {
                             // convex vs convex
                             //Debug.Log("testing " + lb.name+" with "+channelBoundsConvex[boffset].vertices[0]);
-                            if (ConvexIntersect(lbConvex, channelBoundsConvex[boffset]))
+                            if (ConvexIntersect(lbConvex, channelBoundsConvex[boffset]) && ConvexIntersect(channelBoundsConvex[boffset], lbConvex))
                             {
                                 //Debug.LogError(lb.name+" intersects with "+channelBoundsConvex[boffset].vertices[0]);
                                 intersects = true;
@@ -5928,7 +6172,14 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                         DebugLogInfo("Light " + lb.name + " set to channel " + channelSet);
                         if (!SetupLightShadowmask(lb, channelSet)) someLightsCantBeMasked = true;
                     }
-                    if (lightsRemainingB[idB].point != null) lightsRemainingB[idB].point.maskChannel = channelSet;
+                    if (lightsRemainingB[idB].point != null)
+                    {
+                        lightsRemainingB[idB].point.maskChannel = channelSet;
+                    }
+                    else if (lightsRemainingB[idB].lightMesh != null)
+                    {
+                        lightsRemainingB[idB].lightMesh.maskChannel = channelSet;
+                    }
                 }
 
                 //channel++;
@@ -5938,6 +6189,10 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         if (ftAdditionalConfig.batchPointLights)
         {
             System.Array.Sort(AllP, ComparePointLights);
+        }
+        if (ftAdditionalConfig.batchAreaLights)
+        {
+            System.Array.Sort(All, CompareAreaLights);
         }
 
         if (someLightsCantBeMasked)
@@ -5961,35 +6216,33 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             }
         }
 
-        // Render directional lighting for every lightmap
         ftBuildLights.InitMaps(false);
+
+        // Render directional lighting for every lightmap (prepare)
         foreach(var lmgroup in groupList)
         {
             var nm = lmgroup.name;
             currentGroup = lmgroup;
-            bool doRender = true;
 
-            if (doRender) {
-                DebugLogInfo("Preparing (direct) lightmap " + nm + " (" + (lmgroup.id+1) + "/" + groupList.Count + ")");
+            DebugLogInfo("Preparing (direct) lightmap " + nm + " (" + (lmgroup.id+1) + "/" + groupList.Count + ")");
 
-                progressStepsDone++;
+            progressStepsDone++;
+            if (userCanceled)
+            {
+                ProgressBarEnd();
+                yield break;
+            }
+            yield return null;
+
+            var routine = RenderLMDirect(lmgroup.id, nm, lmgroup.resolution);
+            while(routine.MoveNext())
+            {
                 if (userCanceled)
                 {
                     ProgressBarEnd();
                     yield break;
                 }
                 yield return null;
-
-                var routine = RenderLMDirect(lmgroup.id, nm, lmgroup.resolution);
-                while(routine.MoveNext())
-                {
-                    if (userCanceled)
-                    {
-                        ProgressBarEnd();
-                        yield break;
-                    }
-                    yield return null;
-                }
             }
         }
 
@@ -6105,34 +6358,56 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                 var rmode = lmgroup.renderMode == (int)BakeryLightmapGroup.RenderMode.Auto ? (int)userRenderMode : (int)lmgroup.renderMode;
                 if ((rmode == (int)RenderMode.Indirect || rmode == (int)RenderMode.Shadowmask) && performRendering)
                 {
-                    //int errCode2 = 0;
-                    if (exeMode)
-                    {
-                        var startInfo = new System.Diagnostics.ProcessStartInfo();
-                        startInfo.CreateNoWindow  = false;
-                        startInfo.UseShellExecute = false;
-#if !LAUNCH_VIA_DLL
-                        startInfo.WorkingDirectory = dllPath + "/Bakery";
-#endif
-                        startInfo.FileName        = startInfo.WorkingDirectory + "/" + ftraceExe;
-                        startInfo.CreateNoWindow = true;
-                        startInfo.Arguments       =  "add " + scenePathQuoted + " \"" + nm + "_final_HDR" + (compressedOutput ? ".lz4" : ".dds")
-                        + "\"" + " " + PASS_HALF + " " + 0 + " " + lmgroup.id + " comp_indirect" + lmgroup.id + ".bin";
+                    if (lmgroup.probes && bounces == 0 && rmode == (int)RenderMode.Shadowmask) continue; // special case
 
-                        if (deferredMode)
+                    //int errCode2 = 0;
+                    bool skip = false;
+                    // Don't combine non-directional lightmap when baking RNM/SH with 0 bounces (won't be used)
+                    if (rmode == (int)RenderMode.Shadowmask && bounces == 0)
+                    {
+                        bool hasRNM =  lmgroup.renderDirMode == (int)BakeryLightmapGroup.RenderDirMode.RNM  ||
+                                      (lmgroup.renderDirMode == (int)BakeryLightmapGroup.RenderDirMode.Auto && renderDirMode == RenderDirMode.RNM);
+
+                        bool hasSH = lmgroup.renderDirMode == (int)BakeryLightmapGroup.RenderDirMode.SH || lmgroup.renderDirMode == (int)BakeryLightmapGroup.RenderDirMode.MonoSH ||
+                                    (lmgroup.renderDirMode == (int)BakeryLightmapGroup.RenderDirMode.Auto && renderDirMode == RenderDirMode.SH) ||
+                                    (lmgroup.renderDirMode == (int)BakeryLightmapGroup.RenderDirMode.Auto && renderDirMode == RenderDirMode.MonoSH);
+
+                        if (hasRNM || hasSH)
                         {
-                            deferredFileSrc.Add("");//scenePath + "/comp_indirect" + lmgroup.id + ".bin");
-                            deferredFileDest.Add("");//scenePath + "/comp.bin");
-                            deferredCommands.Add(startInfo);
-                            deferredCommandDesc.Add("Compositing baked lights with GI for " + lmgroup.name + "...");
+                            skip = true;
                         }
-                        else
+                    }
+
+                    if (!skip)
+                    {
+                        if (exeMode)
                         {
-                            /*File.Copy(scenePath + "/comp_indirect" + lmgroup.id + ".bin", scenePath + "/comp.bin", true);
-                            Debug.Log("Running ftrace " + startInfo.Arguments);
-                            var exeProcess = System.Diagnostics.Process.Start(startInfo);
-                            exeProcess.WaitForExit();
-                            errCode2 = exeProcess.ExitCode;*/
+                            var startInfo = new System.Diagnostics.ProcessStartInfo();
+                            startInfo.CreateNoWindow  = false;
+                            startInfo.UseShellExecute = false;
+#if !LAUNCH_VIA_DLL
+                            startInfo.WorkingDirectory = dllPath + "/Bakery";
+#endif
+                            startInfo.FileName        = startInfo.WorkingDirectory + "/" + ftraceExe;
+                            startInfo.CreateNoWindow = true;
+                            startInfo.Arguments       =  "add " + scenePathQuoted + " \"" + nm + "_final_HDR" + (compressedOutput ? ".lz4" : ".dds")
+                            + "\"" + " " + PASS_HALF + " " + 0 + " " + lmgroup.id + " comp_indirect" + lmgroup.id + ".bin";
+
+                            if (deferredMode)
+                            {
+                                deferredFileSrc.Add("");//scenePath + "/comp_indirect" + lmgroup.id + ".bin");
+                                deferredFileDest.Add("");//scenePath + "/comp.bin");
+                                deferredCommands.Add(startInfo);
+                                deferredCommandDesc.Add("Compositing baked lights with GI for " + lmgroup.name + "...");
+                            }
+                            else
+                            {
+                                /*File.Copy(scenePath + "/comp_indirect" + lmgroup.id + ".bin", scenePath + "/comp.bin", true);
+                                Debug.Log("Running ftrace " + startInfo.Arguments);
+                                var exeProcess = System.Diagnostics.Process.Start(startInfo);
+                                exeProcess.WaitForExit();
+                                errCode2 = exeProcess.ExitCode;*/
+                            }
                         }
                     }
 
@@ -6639,7 +6914,15 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         {
             DebugLogInfo("Unloading scenes...");
             if (unloadScenesInDeferredMode) UnloadScenes();
-            yield return new WaitForEndOfFrame();
+            if (unityInBatchMode)
+            {
+                // No WaitForEndOfFrame in batch mode
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                yield return new WaitForEndOfFrame();
+            }
             DebugLogInfo("Unloading scenes - done.");
 
             if (deferredCommands.Count != deferredFileSrc.Count || deferredFileSrc.Count != deferredFileDest.Count || deferredCommands.Count != deferredCommandDesc.Count)
@@ -6869,6 +7152,11 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             var apply = ApplyBakedData();
             while(apply.MoveNext()) yield return null;
 
+#if UNITY_2021_2_OR_NEWER
+            mmfTexProc?.Dispose();
+            mmfTexProc = null;
+#endif
+
             var ms = GetTimeMs();
             double bakeTime = (ms - startMs) / 1000.0;
             DebugLogInfo("Rendering finished in " + bakeTime + " seconds");
@@ -6907,6 +7195,8 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
     Texture2D ConvertTexToAsset(Texture2D lm)
     {
+        if (lm == null) return null;
+
         var path = AssetDatabase.GetAssetPath(lm);
         var ti = (TextureImporter)TextureImporter.GetAtPath(path);
 
@@ -6952,6 +7242,13 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         return AssetDatabase.LoadAssetAtPath<Texture2D>(newPath);
     }
 
+    static public Vector3 SnapProbePos(Vector3 lpos)
+    {
+        const float posPrecision = 10.0f;
+        const float posEpsilon = 0.0001f;
+        return new Vector3((int)(lpos.x * posPrecision + (lpos.x > 0 ? posEpsilon : -posEpsilon)), (int)(lpos.y * posPrecision + (lpos.y > 0 ? posEpsilon : -posEpsilon)), (int)(lpos.z * posPrecision + (lpos.z > 0 ? posEpsilon : -posEpsilon)));
+    }
+
     IEnumerator ApplyBakedData()
     {
         var sceneCount = EditorSceneManager.sceneCount;
@@ -6988,7 +7285,13 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         }
 
         // Set probe colors
-        if (!selectedOnly && lightProbeMode == LightProbeMode.L1 && hasAnyProbes && !fullSectorRender)
+        bool renderProbesNow = lightProbeMode == LightProbeMode.L1 && !selectedOnly;
+        bool sectorOnly = false;
+        if (renderProbesNow && fullSectorRender && curSector != null)
+        {
+            renderProbesNow = sectorOnly = curSector.bakeChildLightProbeGroups;
+        }
+        if (renderProbesNow && hasAnyProbes)
         {
             var probes = LightmapSettings.lightProbes;
             if (probes == null)
@@ -7001,6 +7304,34 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             atlasTexSize = (int)Mathf.Ceil(atlasTexSize / (float)tileSize) * tileSize;
 
             var shs = new SphericalHarmonicsL2[probes.count];
+
+            if (sectorOnly)
+            {
+                // Set previous values
+                Vector3 lpos;
+                var origShs = storage.prevBakedProbes;
+                var origShPos = storage.prevBakedProbePos;
+                if (origShs != null && origShPos != null && origShs.Length == origShPos.Length && origShs.Length > 0)
+                {
+                    var posToSH = new Dictionary<Vector3, SphericalHarmonicsL2>();
+                    int numPrevProbes = origShPos.Length;
+                    for(int i=0; i<numPrevProbes; i++)
+                    {
+                        lpos = origShPos[i];
+                        posToSH[SnapProbePos(lpos)] = origShs[i].GetSH();
+                    }
+                    int numPos = positions.Length;
+                    SphericalHarmonicsL2 sh;
+                    for(int i=0; i<numPos; i++)
+                    {
+                        lpos = positions[i];
+                        if (posToSH.TryGetValue(SnapProbePos(lpos), out sh))
+                        {
+                            shs[i] = sh;
+                        }
+                    }
+                }
+            }
 
             int r = 0;
             int g = 1;
@@ -7038,6 +7369,18 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                 {
                     for(int i=0; i<probes.count; i++)
                     {
+                        if (sectorOnly)
+                        {
+                            var lpos = positions[i];
+
+                            //var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                            //go.transform.position = lpos;
+                            //var lpos2 = SnapProbePos(lpos);
+                            //go.name = "2 " + lpos2.x+" "+lpos2.y+" "+lpos2.z;
+
+                            if (!sectorProbePosHash.Contains(SnapProbePos(lpos))) continue;
+                        }
+
                         var sh = new SphericalHarmonicsL2();
 
                         sh[r,0] = l0[i*4+0] * 2;
@@ -7101,6 +7444,15 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
             probes.bakedProbes = shs;
             EditorUtility.SetDirty(Lightmapping.lightingDataAsset);
+
+            var shs2 = new ftLightmapsStorage.L2[shs.Length];
+            for(int i=0; i<shs.Length; i++)
+            {
+                shs2[i] = new ftLightmapsStorage.L2();
+                shs2[i].SetSH(shs[i]);
+            }
+            storage.prevBakedProbes = shs2;
+            storage.prevBakedProbePos = positions;
         }
 
         LoadVolumes();
@@ -7112,7 +7464,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
         // Asset importing stage 2: actual import
         AssetDatabase.Refresh();
-        ftTextureProcessor.texSettings = new Dictionary<string, Vector2>();
+        ftTextureProcessor.texSettings = new Dictionary<string, Int2>();
 
         // Asset importing stage 3: load and assign imported assets
         foreach(var lmgroup in groupListGIContributingPlain)
@@ -7574,9 +7926,27 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
             DebugLogInfo("Waiting for Unity editor focus...");
             bool focused = false;
+#if UNITY_2023_1_OR_NEWER
+            var titleBuff = new StringBuilder(256);
+#endif
             while(!focused)
             {
                 var wnd = GetForegroundWindow();
+
+#if UNITY_2023_1_OR_NEWER
+                if (GetClassName(wnd, titleBuff, 256) > 0)
+                {
+                    if (titleBuff.ToString() == "UnityContainerWndClass")
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    DebugLogInfo("Unable to get Editor class name");
+                }
+#endif
+
                 while(wnd != (System.IntPtr)0)
                 {
                     if (wnd == unityEditorHWND)
@@ -8306,6 +8676,169 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         }
     }
 
+    internal void ComputeAreaLightLMGroupIntersections(List<BakeryLightmapGroup> groupList)
+    {
+        AllAffectsGroups = new List<bool[]>();
+        for(int i=0; i<All.Length; i++)
+        {
+            var obj = All[i] as BakeryLightMesh;
+            if (!obj.enabled)
+            {
+                AllAffectsGroups.Add(null);
+                continue;
+            }
+
+            var lmr = ftBuildGraphics.GetValidRenderer(obj.gameObject);
+            var lma = obj.GetComponent<Light>();
+            if (lmr == null && lma == null)
+            {
+                AllAffectsGroups.Add(null);
+                continue;
+            }
+
+            AllAffectsGroups.Add(new bool[groupList.Count]);
+            foreach(var lmgroup in groupList)
+            {
+                currentGroup = lmgroup;
+                int LMID = lmgroup.id;
+                if ((obj.bitmask & currentGroup.bitmask) == 0) continue;
+
+                bool isArea = lma != null && ftLightMeshInspector.IsArea(lma);
+
+                if (isArea)
+                {
+                    lmr = null;
+                }
+                else if (ftBuildGraphics.GetSharedMesh(obj.gameObject) != null)
+                {
+                    lma = null;
+                }
+                else
+                {
+                    Debug.LogError("Light mesh " + obj.name + " must have either a mesh or an area light");
+                    continue;
+                }
+
+                Bounds lBounds;
+                Vector3[] corners = null;
+                if (lma != null)
+                {
+                    corners = ftLightMeshInspector.GetAreaLightCorners(lma);
+                    lBounds = new Bounds(corners[0], Vector3.zero);
+                    lBounds.Encapsulate(corners[1]);
+                    lBounds.Encapsulate(corners[2]);
+                    lBounds.Encapsulate(corners[3]);
+                }
+                else
+                {
+                    var lmrState = lmr.enabled;
+                    lmr.enabled = true;
+                    lBounds = lmr.bounds;
+                    lmr.enabled = lmrState;
+                }
+
+                lBounds.Expand(new Vector3(obj.cutoff, obj.cutoff, obj.cutoff));
+                if (!lBounds.Intersects(storage.bounds[LMID])) continue;
+
+                AllAffectsGroups[i][LMID] = true;
+            }
+        }
+    }
+
+    internal void SetAreaLightLMID()
+    {
+        int areaLightOffset = -2;
+        var savedLights = new List<SavedLight>();
+        int totalCount = 0;
+        int batchedCount = 0;
+        for(int lid=0; lid<All.Length; lid++)
+        {
+            var obj = All[lid];
+            if (!obj.enabled) continue;
+            totalCount++;
+            bool append = false;
+            bool canAppend = !obj.shadowmask; // don't combine shadowmasked area lights
+            if (canAppend)
+            {
+                var maskA = AllAffectsGroups[lid];
+                int maskLen = maskA.Length;
+                for(int i=0; i<savedLights.Count; i++)
+                {
+                    if (obj.texture != savedLights[i].tex) continue;
+                    if (obj.color != savedLights[i].color) continue;
+                    if (obj.intensity != savedLights[i].intensity) continue;
+                    if (obj.bitmask != savedLights[i].bitmask) continue;
+                    if (obj.cutoff != savedLights[i].cutoff) continue;
+                    if (obj.indirectIntensity != savedLights[i].indirectIntensity) continue;
+                    if (obj.samples != savedLights[i].samples) continue;
+                    if (obj.samples2 != savedLights[i].samples2) continue;
+                    if (obj.selfShadow != savedLights[i].selfShadow) continue;
+                    if (obj.bakeToIndirect != savedLights[i].bakeToIndirect) continue;
+                    if (obj.shadowmask != savedLights[i].shadowmask) continue;
+                    if (obj.shadowmaskFalloff != savedLights[i].shadowmaskFalloff) continue;
+
+                    if (savedLights[i].accumSamples + obj.samples > batchAreaLightSampleLimit) continue;
+
+                    bool maskEquals = true;
+                    var maskB = AllAffectsGroups[savedLights[i].lid];
+                    for(int k=0; k<maskLen; k++)
+                    {
+                        if (maskA[k] != maskB[k])
+                        {
+                            maskEquals = false;
+                            break;
+                        }
+                    }
+                    if (!maskEquals) continue;
+
+                    append = true;
+                    int newSamples = savedLights[i].accumSamples + obj.samples;
+
+                    var sl = savedLights[i];
+                    sl.accumSamples = newSamples;
+                    savedLights[i] = sl;
+
+                    obj.lmid = savedLights[i].lmid;
+
+                    //Debug.LogError("[1] Append "+obj.name+" to "+savedLights[i].name + " (" + obj.lmid + ")");
+                }
+
+                if (!append)
+                {
+                    var sl = new SavedLight();
+                    sl.tex = obj.texture;
+                    sl.bitmask = obj.bitmask;
+                    sl.color = obj.color;
+                    sl.intensity = obj.intensity;
+                    sl.cutoff = obj.cutoff;
+                    sl.indirectIntensity = obj.indirectIntensity;
+                    sl.samples = obj.samples;
+                    sl.samples2 = obj.samples2;
+                    sl.selfShadow = obj.selfShadow;
+                    sl.bakeToIndirect = obj.bakeToIndirect;
+                    sl.shadowmask = obj.shadowmask;
+                    sl.shadowmaskFalloff = obj.shadowmaskFalloff;
+                    sl.name = obj.name;
+                    sl.lid = lid;
+                    
+                    obj.lmid = sl.lmid = -lid + areaLightOffset;
+                    
+                    savedLights.Add(sl);
+
+                    batchedCount++;
+
+                    //Debug.LogError("[1] Add "+obj.name +" (" + sl.lmid + ")");
+                }
+            }
+            else
+            {
+                obj.lmid = -lid + areaLightOffset;
+                batchedCount++;
+            }
+        }
+        DebugLogInfo("Total area light count: " + totalCount + ", batched: " + batchedCount);
+    }
+
     IEnumerator RenderLMDirect(int LMID, string lmname, int resolution)
     {
         System.Diagnostics.ProcessStartInfo startInfo;
@@ -8477,6 +9010,9 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             lBounds.Expand(new Vector3(obj.cutoff, obj.cutoff, obj.cutoff));
             if (!lBounds.Intersects(storage.bounds[LMID])) continue;
 
+            ftBuildLights.BuildLight(obj, SampleCount(obj.samples), corners, deferredMode ? ("lights" + i + ".bin") : "lights.bin");
+            if (ftBuildLights.appended.Contains(obj)) continue;
+
             var lname = GetLightName(obj.gameObject, storage, LMID);
             UpdateLightmapShadowmaskFromAreaLight(obj, LMID, lname, lmname);
 
@@ -8548,9 +9084,6 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
             }
 
             if (!performRendering) continue;
-
-            ftBuildLights.BuildLight(obj, SampleCount(obj.samples), corners, deferredMode ? ("lights" + i + ".bin") : "lights.bin");
-
 
             var pth = scenePath + "/" + lname + "_HDR" + (compressedOutput ? ".lz4" : ".dds");
             if (!IsLightDirty(obj) && File.Exists(pth)) continue;// && new FileInfo(pth).Length == 128+size*size*8) continue;
@@ -8777,8 +9310,6 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                 }
                 if (obj.projMode != 0)
                 {
-                    //yield return new WaitForEndOfFrame();
-                    //yield return new WaitForSeconds(1); // ?????
                     yield return null;
                 }
 
@@ -8897,7 +9428,6 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
 
             if (texDirty)
             {
-                //yield return new WaitForEndOfFrame();
                 yield return new WaitForSeconds(1);
             }
 
@@ -9678,7 +10208,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         var outputPathCompat = outputPathFull.Replace("\\", "/");
 
         // Prepare asset importing: set AssetPostprocessor settings
-        ftTextureProcessor.texSettings = new Dictionary<string, Vector2>();
+        ftTextureProcessor.texSettings = new Dictionary<string, Int2>();
         foreach(var lmgroup in groupListGIContributingPlain)
         {
             if (lmgroup.vertexBake) continue;
@@ -9707,7 +10237,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                     var desiredTextureType = encodeMode == 0 ? ftTextureProcessor.TEX_LM : ftTextureProcessor.TEX_LMDEFAULT;
                     if (lightmapHasColor[lmgroup.id])// && File.Exists(outfile))
                     {
-                        ftTextureProcessor.texSettings[outfile] = new Vector2(colorSize, desiredTextureType);
+                        ftTextureProcessor.texSettings[outfile] = new Int2(colorSize, desiredTextureType);
                     }
 
                     //Texture2D mask = null;
@@ -9716,7 +10246,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                     {
                         outfile = "Assets/" + outputPathCompat + "/"+nm+"_mask" + (pstorage.format8bit == BakeryProjectSettings.FileFormat.PNG ? ".png" : ".tga");
                         desiredTextureType = lightmapHasMask[lmgroup.id] >= 4 ? ftTextureProcessor.TEX_MASK : ftTextureProcessor.TEX_MASK_NO_ALPHA;
-                        ftTextureProcessor.texSettings[outfile] = new Vector2(maskSize, desiredTextureType);
+                        ftTextureProcessor.texSettings[outfile] = new Int2(maskSize, desiredTextureType);
                     }
 
                     //Texture2D dirLightmap = null;
@@ -9724,7 +10254,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                     {
                         outfile = "Assets/" + outputPathCompat + "/"+nm+"_dir" + (pstorage.format8bit == BakeryProjectSettings.FileFormat.PNG ? ".png" : ".tga");
                         desiredTextureType = ftTextureProcessor.TEX_DIR;// TextureImporterType.Default;
-                        ftTextureProcessor.texSettings[outfile] = new Vector2(dirSize, desiredTextureType);
+                        ftTextureProcessor.texSettings[outfile] = new Int2(dirSize, desiredTextureType);
                     }
 
                     //Texture2D rnmLightmap0 = null;
@@ -9737,7 +10267,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                         for(int c=0; c<3; c++)
                         {
                             outfile = "Assets/" + outputPathCompat + "/"+nm+"_RNM" + c + ".hdr";
-                            ftTextureProcessor.texSettings[outfile] = new Vector2(dirSize, desiredTextureType);
+                            ftTextureProcessor.texSettings[outfile] = new Int2(dirSize, desiredTextureType);
                         }
                     }
 
@@ -9745,14 +10275,14 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                     {
                         outfile = "Assets/" + outputPathCompat + "/"+nm+"_L0.hdr";
                         desiredTextureType = encodeMode == 0 ? ftTextureProcessor.TEX_LM : ftTextureProcessor.TEX_LMDEFAULT;
-                        ftTextureProcessor.texSettings[outfile] = new Vector2(colorSize, desiredTextureType);
+                        ftTextureProcessor.texSettings[outfile] = new Int2(colorSize, desiredTextureType);
 
                         desiredTextureType = ftTextureProcessor.TEX_DIR;// TextureImporterType.Default;
                         if (shModeMono)
                         {
                             desiredTextureType = ftTextureProcessor.TEX_DIR_NO_ALPHA;
                             outfile = "Assets/" + outputPathCompat + "/"+nm+"_L1" + (pstorage.format8bit == BakeryProjectSettings.FileFormat.PNG ? ".png" : ".tga");
-                            ftTextureProcessor.texSettings[outfile] = new Vector2(dirSize, desiredTextureType);
+                            ftTextureProcessor.texSettings[outfile] = new Int2(dirSize, desiredTextureType);
                         }
                         else
                         {
@@ -9772,7 +10302,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                                     comp = "z";
                                 }
                                 outfile = "Assets/" + outputPathCompat + "/"+nm+"_L1" + comp + (pstorage.format8bit == BakeryProjectSettings.FileFormat.PNG ? ".png" : ".tga");
-                                ftTextureProcessor.texSettings[outfile] = new Vector2(dirSize, desiredTextureType);
+                                ftTextureProcessor.texSettings[outfile] = new Int2(dirSize, desiredTextureType);
                             }
                         }
                     }
@@ -9781,16 +10311,22 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         }
 
 #if UNITY_2021_2_OR_NEWER
+
         // For parallel import
         if (UnityEditor.EditorSettings.refreshImportMode == AssetDatabase.RefreshImportMode.OutOfProcessPerQueue)
         {
-            gstorage.texSettingsKey = new List<string>();
+            /*gstorage.texSettingsKey = new List<string>();
             gstorage.texSettingsVal = new List<Vector2>();
             foreach(var pair in ftTextureProcessor.texSettings)
             {
                 gstorage.texSettingsKey.Add(pair.Key);
                 gstorage.texSettingsVal.Add(pair.Value);
-            }
+            }*/
+            mmfTexProc = MemoryMappedFile.CreateOrOpen("FTEXPROC", maxTexSettingsSize, MemoryMappedFileAccess.ReadWrite);
+            var stream = mmfTexProc.CreateViewStream(0, maxTexSettingsSize);
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(stream, ftTextureProcessor.texSettings);
+            stream.Flush();
         }
 #endif
     }
@@ -10051,6 +10587,9 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         string denoiseMod;
         switch(denoiserType)
         {
+            case ftGlobalStorage.DenoiserType.OpenImageDenoise2:
+                denoiseMod = "OIDN2";
+                break;
             case ftGlobalStorage.DenoiserType.OpenImageDenoise:
                 denoiseMod = "OIDN";
                 break;
@@ -10518,7 +11057,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
                                          "\" \"" + scenePath + "/" + lmname + "_final_L1z" + (compressedOutput ? ".lz4" : ".dds") +
                                          "\"";
                 string firstArgs = startInfo.Arguments;
-                startInfo.Arguments += " " + GetDenoiseStartTileSize(resolution) + " 0";
+                startInfo.Arguments += " " + GetDenoiseStartTileSize(resolution) + " " + (denoise2x ? 1 : 0);
                 deferredFileSrc.Add("");
                 deferredFileDest.Add("");
                 deferredCommands.Add(startInfo);
@@ -11038,6 +11577,7 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         ftBuildGraphics.postPacking = storage.renderSettingsPostPacking;
         ftBuildGraphics.holeFilling = storage.renderSettingsHoleFilling;
         compressVolumes = storage.renderSettingsCompressVolumes;
+        batchAreaLightSampleLimit = storage.renderSettingsBatchAreaLightSampleLimit;
     }
 
     void OnEnable()
@@ -11056,6 +11596,11 @@ public class ftRenderLightmap : EditorWindow//ScriptableWizard
         instance.Show();
         ftLightmaps.GetRuntimePath();
 	}
+
+    public static int GetRTPreviewCompatibilityVersion()
+    {
+        return 20230703;
+    }
 }
 
 #endif

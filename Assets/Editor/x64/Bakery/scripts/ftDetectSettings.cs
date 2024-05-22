@@ -30,7 +30,7 @@ public class ftDetectSettings
     static int lastReturnValue = -1;
     static bool userCanceled = false;
 
-    static bool runsRTX, runsNonRTX, runsOptix5, runsOptix6, runsOptix7, runsOIDN;
+    static bool runsRTX, runsNonRTX, runsOptix5, runsOptix6, runsOptix7, runsOIDN, runsOIDN2;
 
     const string progressHeader = "Detecting compatible configuration";
 
@@ -41,10 +41,13 @@ public class ftDetectSettings
 
     static void ValidateFileAttribs(string file)
     {
-        var attribs = File.GetAttributes(file);
-        if ((attribs & FileAttributes.ReadOnly) != 0)
+        if (File.Exists(file))
         {
-            File.SetAttributes(file, attribs & ~FileAttributes.ReadOnly);
+            var attribs = File.GetAttributes(file);
+            if ((attribs & FileAttributes.ReadOnly) != 0)
+            {
+                File.SetAttributes(file, attribs & ~FileAttributes.ReadOnly);
+            }
         }
     }
 
@@ -53,6 +56,7 @@ public class ftDetectSettings
     {
         var bakeryPath = ftLightmaps.GetEditorPath();
         ValidateFileAttribs(bakeryPath+"/hwtestdata/image.lz4");
+        ValidateFileAttribs(bakeryPath+"/hwtestdata/light_HDR.lz4");
 
         progressFunc = DetectCoroutine();
         EditorApplication.update += DetectUpdate;
@@ -60,7 +64,7 @@ public class ftDetectSettings
 
     static IEnumerator DetectCoroutine()
     {
-        float stages = 6;
+        float stages = 7;
         float step = 1.0f / stages;
         float progress = 0;
         IEnumerator crt;
@@ -107,6 +111,13 @@ public class ftDetectSettings
         runsOIDN = lastReturnValue==0;
         progress += step;
 
+        ShowProgress("Testing: OpenImageDenoise2 (CUDA)", progress);
+        crt = ProcessCoroutine("denoiserOIDN2 c hwtestdata/image.lz4 hwtestdata/image.lz4 16 0");
+        while (crt.MoveNext()) yield return null;
+        if (userCanceled) yield break;
+        runsOIDN2 = lastReturnValue==0;
+        progress += step;
+
         simpleProgressBarEnd();
 
         if (!runsRTX && !runsNonRTX)
@@ -122,6 +133,7 @@ public class ftDetectSettings
         str += "OptiX 6.0 denoiser: " + (runsOptix6 ? "yes" : "no") + "\n";
         str += "OptiX 7.2 denoiser: " + (runsOptix7 ? "yes" : "no") + "\n";
         str += "OpenImageDenoise: " + (runsOIDN ? "yes" : "no") + "\n";
+        str += "OpenImageDenoise2 (CUDA): " + (runsOIDN2 ? "yes" : "no") + "\n";
 
         str += "\n";
         str += "Recommended RTX mode: ";
@@ -144,6 +156,11 @@ public class ftDetectSettings
         {
             // OptiX 5.1 has stable quality since release, but not supported on 30XX
             str += "OptiX 5.1\n";
+        }
+        else if (runsOIDN2)
+        {
+            // OIDN2+CUDA is the best option on modern HW
+            str += "OpenImageDenoise2\n";
         }
         else if (runsOIDN)
         {
@@ -181,6 +198,7 @@ public class ftDetectSettings
             gstorage.runsOptix6 = runsOptix6;
             gstorage.runsOptix7 = runsOptix7;
             gstorage.runsOIDN = runsOIDN;
+            gstorage.runsOIDN2 = runsOIDN2;
         }
 
         if (!EditorUtility.DisplayDialog("Results", str, "OK", "Set recommended as default"))
@@ -198,7 +216,11 @@ public class ftDetectSettings
                 gstorage.renderSettingsRTXMode = false;
             }
 
-            if (runsOptix5)
+            if (runsOIDN2)
+            {
+                gstorage.renderSettingsDenoiserType = (int)ftGlobalStorage.DenoiserType.OpenImageDenoise2;
+            }
+            else if (runsOptix5)
             {
                 gstorage.renderSettingsDenoiserType = (int)ftGlobalStorage.DenoiserType.Optix5;
             }

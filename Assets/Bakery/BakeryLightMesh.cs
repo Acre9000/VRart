@@ -20,12 +20,14 @@ public class BakeryLightMesh : MonoBehaviour
     public float cutoff = 100;
     public int samples = 256;
     public int samples2 = 16;
+    public int samples2_previous = 16;
     public int bitmask = 1;
     public bool selfShadow = true;
     public bool bakeToIndirect = true;
     public bool shadowmask = false;
     public float indirectIntensity = 1.0f;
     public bool shadowmaskFalloff = false;
+    public int maskChannel;
 
     public int lmid = -2;
 

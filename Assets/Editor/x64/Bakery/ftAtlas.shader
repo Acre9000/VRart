@@ -21,6 +21,8 @@
 
 			#include "UnityCG.cginc"
 
+			float isSelected;
+
 			struct v2f
 			{
 				float4 vertex : SV_POSITION;
@@ -36,7 +38,7 @@
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-                return 0.1;
+                return isSelected > 0.0f ? float4(1,1,0,1) : 0.1;
 			}
 			ENDCG
 		}

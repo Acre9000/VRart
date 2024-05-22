@@ -113,6 +113,7 @@ public class ftBuildGraphics : ScriptableWizard
     };
 
     static Material matCubemapToStripExport;
+    static Material matAreaLight;
 
     static int voffset, soffset, ioffset;
 
@@ -143,10 +144,14 @@ public class ftBuildGraphics : ScriptableWizard
     public static bool exportTerrainTrees = false;
     public static bool uvgbHeightmap = true;
 
+    public static int terrainTreeLODLevel = 0;
+
     public static bool texelsPerUnitPerMap = false;
     public static float mainLightmapScale = 1;
     public static float maskLightmapScale = 1;
     public static float dirLightmapScale = 1;
+
+    public static bool autosetAreaLightLMID = true;
 
     const float atlasScaleUpValue = 1.01f;
     const int atlasMaxTries = 100;
@@ -410,12 +415,15 @@ public class ftBuildGraphics : ScriptableWizard
         BakeryLightmapGroup lmgroup = null;
         if (lmgroupSelector != null)
         {
-            lmgroup = lmgroupSelector.lmgroupAsset as BakeryLightmapGroup;
-            lmgroupHolder = lmgroupSelector.gameObject;
+            if (lmgroupSelector.active)
+            {
+                lmgroup = lmgroupSelector.lmgroupAsset as BakeryLightmapGroup;
+                lmgroupHolder = lmgroupSelector.gameObject;
 
-            var scaleInLm = data.objToScaleInLm[obj];
-            if (scaleInLm == 0.0f) lmgroup = data.autoVertexGroup;
-                //null; // ignore lightmaps when scaleInLightmap == 0
+                var scaleInLm = data.objToScaleInLm[obj];
+                if (scaleInLm == 0.0f) lmgroup = data.autoVertexGroup;
+                    //null; // ignore lightmaps when scaleInLightmap == 0
+            }
         }
         return lmgroup;
     }
@@ -445,7 +453,10 @@ public class ftBuildGraphics : ScriptableWizard
         }
         if (lmgroupSelector != null)
         {
-            lmgroup = lmgroupSelector.lmgroupAsset as BakeryLightmapGroup;
+            if (lmgroupSelector.active)
+            {
+                lmgroup = lmgroupSelector.lmgroupAsset as BakeryLightmapGroup;
+            }
         }
 
         if (lmgroup != null)
@@ -492,7 +503,10 @@ public class ftBuildGraphics : ScriptableWizard
         }
         if (lmgroupSelector != null)
         {
-            lmgroup = lmgroupSelector.lmgroupAsset as BakeryLightmapGroup;
+            if (lmgroupSelector.active)
+            {
+                lmgroup = lmgroupSelector.lmgroupAsset as BakeryLightmapGroup;
+            }
         }
 
         if (lmgroup != null)
@@ -919,10 +933,19 @@ public class ftBuildGraphics : ScriptableWizard
         }
         if (areaLight != null)
         {
-            f.Write(areaLightCounter);
-            areaLight.lmid = areaLightCounter;
-            areaLightCounter--;
-            return areaLightCounter;
+            if (autosetAreaLightLMID)
+            {
+                f.Write(areaLightCounter);
+                areaLight.lmid = areaLightCounter;
+                areaLightCounter--;
+                return areaLightCounter;
+            }
+            else
+            {
+                f.Write(areaLight.lmid);
+                //Debug.LogError(areaLight.name+" "+areaLight.lmid);
+                return areaLight.lmid;
+            }
         }
         else if (lmgroup != null)
         {
@@ -1116,6 +1139,12 @@ public class ftBuildGraphics : ScriptableWizard
         progressBarPercent = percent;
         if (ftRenderLightmap.showProgressBar) ftRenderLightmap.simpleProgressBarShow("Bakery", progressBarText, progressBarPercent, 0, onTop);
         userCanceled = ftRenderLightmap.simpleProgressBarCancelled();
+    }
+
+    public static void InitTemporaryAreaLightArray()
+    {
+        temporaryAreaLightMeshList = new List<GameObject>();
+        temporaryAreaLightMeshList2 = new List<BakeryLightMesh>();
     }
 
     public static void FreeTemporaryAreaLightMeshes()
@@ -1527,11 +1556,42 @@ public class ftBuildGraphics : ScriptableWizard
 
         int atlasTexSize = (int)Mathf.Ceil(Mathf.Sqrt((float)probes.count));
         atlasTexSize = (int)Mathf.Ceil(atlasTexSize / (float)ftRenderLightmap.tileSize) * ftRenderLightmap.tileSize;
+
+        ftRenderLightmap.sectorProbePosHash = null;
+        bool sectorOnly = ftRenderLightmap.fullSectorRender && ftRenderLightmap.curSector != null && ftRenderLightmap.curSector.bakeChildLightProbeGroups;
+        if (sectorOnly)
+        {
+            // Hash sector probe positions
+            ftRenderLightmap.sectorProbePosHash = new HashSet<Vector3>();
+            var lgroups = ftRenderLightmap.curSector.transform.GetComponentsInChildren<LightProbeGroup>();
+            Vector3 lpos;
+            for(int i=0; i<lgroups.Length; i++)
+            {
+                var ltform = lgroups[i].transform;
+                var lpositions = lgroups[i].probePositions;
+                int numPos = lpositions.Length;
+                for(int j=0; j<numPos; j++)
+                {
+                    lpos = lpositions[j];
+                    lpos = ltform.TransformPoint(lpos);
+
+                    //var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    //go.transform.position = lpos;
+                    //var lpos2 = SnapProbePos(lpos);
+                    //go.name = "# " + lpos2.x+" "+lpos2.y+" "+lpos2.z;
+
+                    ftRenderLightmap.sectorProbePosHash.Add(ftRenderLightmap.SnapProbePos(lpos));
+                }
+            }
+        }
+
         var uvpos = new float[atlasTexSize * atlasTexSize * 4];
         var uvnormal = new byte[atlasTexSize * atlasTexSize * 4];
 
         for(int i=0; i<probes.count; i++)
         {
+            bool use = (!sectorOnly) || ftRenderLightmap.sectorProbePosHash.Contains(ftRenderLightmap.SnapProbePos(positions[i]));
+            if (!use) continue;
             int x = i % atlasTexSize;
             int y = i / atlasTexSize;
             int index = y * atlasTexSize + x;
@@ -1682,6 +1742,7 @@ public class ftBuildGraphics : ScriptableWizard
         volumeLMGroup.vertexCounter = 0;
         volumeLMGroup.renderMode = (BakeryLightmapGroup.RenderMode)pstorage.volumeRenderMode;
         volumeLMGroup.renderDirMode = BakeryLightmapGroup.RenderDirMode.ProbeSH;
+        volumeLMGroup.sceneLodLevel = ftAdditionalConfig.volumeSceneLODLevel;
         groupList.Add(volumeLMGroup);
         lmBounds.Add(new Bounds(new Vector3(0,0,0), new Vector3(10000,10000,10000)));
         data.lmid++;
@@ -1700,6 +1761,7 @@ public class ftBuildGraphics : ScriptableWizard
         var groupSelectors = new List<BakeryLightmapGroupSelector>(FindObjectsOfType(typeof(BakeryLightmapGroupSelector)) as BakeryLightmapGroupSelector[]);
         for(int i=0; i<groupSelectors.Count; i++)
         {
+            if (!groupSelectors[i].active) continue;
             var lmgroup = groupSelectors[i].lmgroupAsset as BakeryLightmapGroup;
             if (lmgroup == null) continue;
             if (!groupList.Contains(lmgroup))
@@ -1754,7 +1816,7 @@ public class ftBuildGraphics : ScriptableWizard
         SceneManager.MoveGameObjectToScene(terrParent, obj.scene);
         terrParent.transform.parent = obj.transform;//.parent;
         var expGroup = obj.GetComponent<BakeryLightmapGroupSelector>();
-        if (expGroup != null)
+        if (expGroup != null && expGroup.active)
         {
             var expGroup2 = terrParent.AddComponent<BakeryLightmapGroupSelector>();
             expGroup2.lmgroupAsset = expGroup.lmgroupAsset;
@@ -2187,12 +2249,15 @@ public class ftBuildGraphics : ScriptableWizard
                 else
                 {
                     var lods = lodGroup.GetLODs();
-                    for (int tl = 0; tl < lods.Length; tl++)
+                    int numLODs = lods.Length;
+                    int desiredLODLevel = System.Math.Min(terrainTreeLODLevel, numLODs-1);
+                    for (int tl = 0; tl < numLODs; tl++)
                     {
-                        for (int h = 0; h < lods[tl].renderers.Length; h++)
+                        int numLODRenderers = lods[tl].renderers.Length;
+                        for (int h = 0; h < numLODRenderers; h++)
                         {
-                            GameObjectUtility.SetStaticEditorFlags(lods[tl].renderers[h].gameObject, tl==0 ? StaticEditorFlags.LightmapStatic : 0);
-                            if (tl == 0)
+                            GameObjectUtility.SetStaticEditorFlags(lods[tl].renderers[h].gameObject, tl == desiredLODLevel ? StaticEditorFlags.LightmapStatic : 0);
+                            if (tl == desiredLODLevel)
                             {
                                 var s = new SerializedObject(lods[tl].renderers[h]);
                                 s.FindProperty("m_ScaleInLightmap").floatValue = 0;
@@ -2200,6 +2265,7 @@ public class ftBuildGraphics : ScriptableWizard
                             }
                         }
                     }
+                    if (desiredLODLevel > 0) DestroyImmediate(lodGroup);
                 }
 
                 var xform = newObj.transform;
@@ -2209,7 +2275,7 @@ public class ftBuildGraphics : ScriptableWizard
     }
 #endif
 
-    static bool ConvertUnityAreaLight(GameObject obj)
+    public static bool ConvertUnityAreaLight(GameObject obj)
     {
         // Add temporary meshes to area lights
         var areaLightMesh = obj.GetComponent<BakeryLightMesh>();
@@ -2226,9 +2292,14 @@ public class ftBuildGraphics : ScriptableWizard
             if (areaLight != null && ftLightMeshInspector.IsArea(areaLight) && (mr == null || mf == null))
             {
                 var areaObj = new GameObject();
-                mf = areaObj.AddComponent<MeshFilter>();
+                if (mf == null) mf = areaObj.AddComponent<MeshFilter>();
                 mf.sharedMesh = BuildAreaLightMesh(areaLight);
-                mr = areaObj.AddComponent<MeshRenderer>();
+                if (mr == null)
+                {
+                    mr = areaObj.AddComponent<MeshRenderer>();
+                    if (matAreaLight == null)  matAreaLight = new Material(Shader.Find("Bakery/Light"));
+                    mr.sharedMaterial = matAreaLight;
+                }
 
                 var props = new MaterialPropertyBlock();
                 props.SetColor("_Color", areaLightMesh.color);
@@ -2676,6 +2747,10 @@ public class ftBuildGraphics : ScriptableWizard
             Shader.SetGlobalFloat("cullMatricesCount", cullMatrices.Length);
         }*/
 
+#if UNITY_2022_1_OR_NEWER
+        GL.modelview = Matrix4x4.identity;
+#endif
+
         // Iterate over cube faces
         for(int i=0; i<6; i++)
         {
@@ -2742,7 +2817,7 @@ public class ftBuildGraphics : ScriptableWizard
                     for(int s=0; s<m.subMeshCount; s++)
                     {
                         int pass = 0;
-                        if (mats.Length > s && mats[s] != null && mats[s].HasProperty("_MainTex"))
+                        if (mats.Length > s && mats[s] != null)// && mats[s].HasProperty("_MainTex"))
                         {
                             var mat = mats[s];
                             Texture tex = null;
@@ -3427,6 +3502,7 @@ public class ftBuildGraphics : ScriptableWizard
             {
                 if (data.autoVertexGroup == null) CreateAutoVertexGroup(data, obj);
                 group = data.autoVertexGroup;
+                lmgroupHolder = obj;
 
                 tempStorage.implicitGroupMap[obj] = data.autoVertexGroup;
 
@@ -3821,7 +3897,7 @@ public class ftBuildGraphics : ScriptableWizard
                 var holder = objsToWriteHolder[i];
                 BakeryLightmapGroupSelector comp = null;
                 if (holder != null) comp = holder.GetComponent<BakeryLightmapGroupSelector>();
-                if (comp != null && comp.instanceResolutionOverride)
+                if (comp != null && comp.instanceResolutionOverride && comp.active)
                 {
                     // Explicit holder size
                     twidth = width * comp.instanceResolution;
@@ -4421,12 +4497,32 @@ public class ftBuildGraphics : ScriptableWizard
         // Workaround for "override resolution"
         // Always pack such rectangles first
         var comp = a.GetComponent<BakeryLightmapGroupSelector>();
-        if (comp != null && comp.instanceResolutionOverride) areaA = comp.instanceResolution * 10000;
+        if (comp != null && comp.instanceResolutionOverride && comp.active) areaA = comp.instanceResolution * 10000;
 
         comp = b.GetComponent<BakeryLightmapGroupSelector>();
-        if (comp != null && comp.instanceResolutionOverride) areaB = comp.instanceResolution * 10000;
+        if (comp != null && comp.instanceResolutionOverride && comp.active) areaB = comp.instanceResolution * 10000;
 
-        return areaB.CompareTo(areaA);
+        int comparisonResult = areaB.CompareTo(areaA);
+        if (comparisonResult == 0)
+        {
+            // We need to sort identical-area objects consistently, so their order doesn't change between bakes
+            comparisonResult = b.name.CompareTo(a.name);
+            if (comparisonResult == 0)
+            {
+                var apos = a.transform.position;
+                var bpos = b.transform.position;
+                comparisonResult = bpos.x.CompareTo(apos.x);
+                if (comparisonResult == 0)
+                {
+                    comparisonResult = bpos.y.CompareTo(apos.y);
+                    if (comparisonResult == 0)
+                    {
+                        comparisonResult = bpos.z.CompareTo(apos.z);
+                    }
+                }
+            }
+        }
+        return comparisonResult;
     }
 
     static void ApplyAreaToUVBounds(float area, Vector4 uvbounds, out float width, out float height)
@@ -4494,7 +4590,7 @@ public class ftBuildGraphics : ScriptableWizard
             // Calculate width and height of each holder in atlas UV space
             float width, height;
             var comp = holderObjs[i].GetComponent<BakeryLightmapGroupSelector>();
-            if (comp != null && comp.instanceResolutionOverride)
+            if (comp != null && comp.instanceResolutionOverride && comp.active)
             {
                 // Explicit holder size
                 pdata.hasResOverrides = true;
@@ -5030,6 +5126,9 @@ public class ftBuildGraphics : ScriptableWizard
 
         var holderAutoIndex = new int[holderObjs.Count];
 
+        bool fillHoles = holeFilling;
+        if (lmgroup.holeFilling != BakeryLightmapGroup.HoleFilling.Auto) fillHoles = lmgroup.holeFilling == BakeryLightmapGroup.HoleFilling.Yes;
+
         for(int bucket=0; bucket<bucketCount; bucket+=2)
         {
             if (lmgroup.isImplicit)
@@ -5086,7 +5185,7 @@ public class ftBuildGraphics : ScriptableWizard
             int indexCount = 6;
             Vector2[] uv = null;
             int[] indices = null;
-            if (!holeFilling)
+            if (!fillHoles)
             {
                 uv = new Vector2[4];
                 indices = new int[6];
@@ -5106,7 +5205,7 @@ public class ftBuildGraphics : ScriptableWizard
                 if (!warned)
                 {
                     var comp = holderObjs[i].GetComponent<BakeryLightmapGroupSelector>();
-                    if (comp != null && comp.instanceResolutionOverride)
+                    if (comp != null && comp.instanceResolutionOverride && comp.active)
                     {
                         if (!ExportSceneValidationMessage("When using xatlas as atlas packer, 'Override resolution' option is not supported for LMGroups.\nOption is used on: " + holderObjs[i].name))
                         {
@@ -5149,7 +5248,7 @@ public class ftBuildGraphics : ScriptableWizard
                     theight = (height * texelsPerUnit);// / lmgroup.resolution;
                 }
 
-                if (!holeFilling)
+                if (!fillHoles)
                 {
                     uv[0] = new Vector2(0,0);
                     uv[1] = new Vector2(twidth,0);
@@ -5297,7 +5396,7 @@ public class ftBuildGraphics : ScriptableWizard
                 int newIndexCount = xatlas.xatlasGetIndexCount(atlas, i);
                 indexBuffer = new int[newIndexCount];
 
-                if (holeFilling)
+                if (fillHoles)
                 {
                    uvBuffer = new Vector2[newVertCount];
                    xrefBuffer = new int[newVertCount];
@@ -5919,6 +6018,56 @@ public class ftBuildGraphics : ScriptableWizard
         public bool continueRepack = false;
     }
 
+    static void UpdateLMGroupBounds(List<Bounds> lmBounds, List<GameObject> objsToWrite, List<BakeryLightmapGroup> objsToWriteGroup, ftLightmapsStorage[] storages)
+    {
+        for(int i=0; i<objsToWrite.Count; i++)
+        {
+            var obj = objsToWrite[i];
+            if (obj == null) continue;
+
+            var lmgroup = objsToWriteGroup[i];
+            if (lmgroup == null) continue;
+            int id = lmgroup.id;
+
+            var mr = GetValidRenderer(obj);
+            
+            if (modifyLightmapStorage)
+            {
+                if (lmBounds[id].size == Vector3.zero) {
+                    lmBounds[id] = mr.bounds;
+                } else {
+                    var b = lmBounds[id];
+                    b.Encapsulate(mr.bounds);
+                    lmBounds[id] = b;
+                }
+
+#if USE_TERRAINS
+                bool isTerrain = (exportTerrainAsHeightmap && obj.name == "__ExportTerrain");
+                if (isTerrain)
+                {
+                    var b = lmBounds[id];
+                    var hindex = terrainObjectList.IndexOf(obj.transform.parent.gameObject);
+                    var terr = terrainObjectToActual[hindex];
+                    var tb = terr.terrainData.bounds;
+                    tb.center += terr.transform.position;
+                    b.Encapsulate(tb);
+                    lmBounds[id] = b;
+                }
+#endif
+            }
+        }
+
+        if (modifyLightmapStorage)
+        {
+            var sceneCount = SceneManager.sceneCount;
+            for(int s=0; s<sceneCount; s++)
+            {
+                if (storages[s] == null) continue;
+                storages[s].bounds = lmBounds;
+            }
+        }
+    }
+
     static public IEnumerator ExportScene(EditorWindow window, bool renderTextures = true, bool atlasOnly = false, BakerySectorCapture sectorCaptureAsset = null)
     {
         lmgroupHolder = null; // important to properly flush previous scale-in-lightmaps
@@ -6007,7 +6156,12 @@ public class ftBuildGraphics : ScriptableWizard
         }
 
         // Create LMGroup for light probes
-        if (ftRenderLightmap.lightProbeMode == ftRenderLightmap.LightProbeMode.L1 && renderTextures && !atlasOnly && ftRenderLightmap.hasAnyProbes && !ftRenderLightmap.fullSectorRender)
+        bool renderProbesNow = ftRenderLightmap.lightProbeMode == ftRenderLightmap.LightProbeMode.L1 && renderTextures && !atlasOnly && ftRenderLightmap.hasAnyProbes;
+        if (renderProbesNow && ftRenderLightmap.fullSectorRender && ftRenderLightmap.curSector != null)
+        {
+            renderProbesNow = ftRenderLightmap.curSector.bakeChildLightProbeGroups;
+        }
+        if (renderProbesNow)
         {
             var c = CreateLightProbeLMGroup(data);
             while(c.MoveNext()) yield return null;
@@ -6195,7 +6349,7 @@ public class ftBuildGraphics : ScriptableWizard
 
                 TransformVertices(data, tangentSHLights);
 
-                if (_unwrapUVs)
+                if (_unwrapUVs && modifyLightmapStorage)
                 {
                     var adata = new AdjustUVPaddingData();
 
@@ -6208,12 +6362,9 @@ public class ftBuildGraphics : ScriptableWizard
                     if (CheckUnwrapError()) yield break;
 
                     // Reimport assets with adjusted padding
-                    if (modifyLightmapStorage)
-                    {
-                        if (!ReimportModifiedAssets(adata)) yield break;
+                    if (!ReimportModifiedAssets(adata)) yield break;
 
-                        TransformModifiedAssets(data, adata, tangentSHLights);
-                    }
+                    TransformModifiedAssets(data, adata, tangentSHLights);
                 }
                 else if (_forceDisableUnwrapUVs)
                 {
@@ -6863,6 +7014,13 @@ public class ftBuildGraphics : ScriptableWizard
                         }
                     }
                     ftModelPostProcessor.EndOverlapCheck();
+                }
+
+                if (ftRenderLightmap.batchAreaLightSampleLimit > 0 && !autosetAreaLightLMID)
+                {
+                    UpdateLMGroupBounds(lmBounds, objsToWrite, objsToWriteGroup, storages);
+                    ftRenderLightmap.instance.ComputeAreaLightLMGroupIntersections(data.groupList);
+                    ftRenderLightmap.instance.SetAreaLightLMID();
                 }
 
                 // Prepare progressbar
@@ -7577,7 +7735,7 @@ public class ftBuildGraphics : ScriptableWizard
                                 storages[sceneID].bakedVertexColorMesh.Add(null);
                             }
                         }
-                        objsToWriteScaleOffset.Add(scaleOffset);
+                        objsToWriteScaleOffset.Add(vertexBake ? emptyVec4 : scaleOffset);
                     }
                 }
 
@@ -7760,9 +7918,9 @@ public class ftBuildGraphics : ScriptableWizard
                     {
                         ftUVGBufferGen.Multiply(emissive, ftRenderLightmap.hackEmissiveBoost);
                     }
-                    //if (!vertexBake) ftUVGBufferGen.Dilate(emissive);
+                    if (!vertexBake) ftUVGBufferGen.Dilate(emissive, 1);
                 }
-                if (!vertexBake) ftUVGBufferGen.Dilate(albedo);
+                if (!vertexBake) ftUVGBufferGen.Dilate(albedo, 0);
 
                 if (isDX11)
                 {
@@ -7958,8 +8116,6 @@ public class ftBuildGraphics : ScriptableWizard
 
         if (nonDX11) lmAlphaListRAMHandle.Free();
 
-        /*yield return new WaitForEndOfFrame();
-        int uerr = ftGenerateAlphaBuffer();*/
         if (uerr != 0 && uerr != 99999)
         {
             DebugLogError("ftGenerateAlphaBuffer error: " + uerr);
@@ -7977,13 +8133,6 @@ public class ftBuildGraphics : ScriptableWizard
             ProgressBarEnd(true);//false);
             yield break;
         }
-
-        //ProgressBarShow("Exporting scene - UV GBuffer...", 0.8f);
-        //if (userCanceled) yield break;
-        //yield return null;
-
-        //GL.IssuePluginEvent(1); // render UV GBuffer
-        //yield return new WaitForEndOfFrame();
 
         SetFixPos(false);//true); // do it manually
         SetCompression(ftRenderLightmap.compressedGBuffer);

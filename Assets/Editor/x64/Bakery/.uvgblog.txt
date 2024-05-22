@@ -2335,3 +2335,1136 @@ Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Spac
 Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space Lighting02_LM0_final_HDR.lz4" "D:/Projects/Unity/VR Exhibition 2023/VRart/Assets/BakeryLightmaps/Exhibition Space Lighting02_LM0_final.hdr" 1024
 Symbol file LoadedFromMemory doesn't match image D:\Projects\Unity\VR Exhibition 2023\VRart\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Symbol file LoadedFromMemory doesn't match image D:\Projects\Unity\VR Exhibition 2023\VRart\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+2024-5-13
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LM0.lz4" 2 0 0 0
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_3" 1924 0 3 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_3" 1924 0 3 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_3" 1924 0 3 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_3" 1924 0 3 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_3" 1924 0 3 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_3" 1924 0 3 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_3" 1924 0 3 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_3" 1924 0 3 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_3" 1924 0 3 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_3" 1924 0 3 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_3" 1924 0 3 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_3" 1924 0 3 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_3" 1924 0 3 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_3" 1924 0 3 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_3" 1924 0 3 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_3" 1924 0 3 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_3" 1924 0 3 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_3" 1924 0 3 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_3" 1924 0 3 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_3" 1924 0 3 lights19.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_3" 1924 0 3 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_3" 1924 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 3 comp_3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_1" 4 0 1 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_1" 4 0 1 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_1" 4 0 1 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_1" 4 0 1 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_1" 4 0 1 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_1" 4 0 1 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_1" 4 0 1 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_1" 4 0 1 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_1" 4 0 1 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_1" 4 0 1 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_1" 4 0 1 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_1" 4 0 1 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_1" 4 0 1 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_1" 4 0 1 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_1" 4 0 1 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_1" 4 0 1 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_1" 4 0 1 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_1" 4 0 1 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_1" 4 0 1 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_1" 4 0 1 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_2" 4 0 2 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_2" 4 0 2 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_2" 4 0 2 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_2" 4 0 2 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_2" 4 0 2 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_2" 4 0 2 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_2" 4 0 2 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_2" 4 0 2 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_2" 4 0 2 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_2" 4 0 2 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_2" 4 0 2 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_2" 4 0 2 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_2" 4 0 2 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_2" 4 0 2 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_2" 4 0 2 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_2" 4 0 2 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_2" 4 0 2 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_2" 4 0 2 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_2" 4 0 2 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_2" 4 0 2 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_0" 4 0 0 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_0" 4 0 0 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_0" 4 0 0 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_0" 4 0 0 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_0" 4 0 0 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_0" 4 0 0 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_0" 4 0 0 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_0" 4 0 0 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_0" 4 0 0 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_0" 4 0 0 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_0" 4 0 0 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_0" 4 0 0 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_0" 4 0 0 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_0" 4 0 0 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_0" 4 0 0 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_0" 4 0 0 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_0" 4 0 0 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_0" 4 0 0 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_0" 4 0 0 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_0" 4 0 0 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA10.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA20.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM00.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA11.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA21.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM01.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA12.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA22.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM02.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA13.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA23.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM03.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 3 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_final" 4 16 1 "gi_Exhibition Space 2024_LMA14.bin" "Exhibition Space 2024_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_final" 4 16 2 "gi_Exhibition Space 2024_LMA24.bin" "Exhibition Space 2024_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_final" 4 16 0 "gi_Exhibition Space 2024_LM04.bin" "Exhibition Space 2024_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 3 shcomp_3.bin
+Running denoiserOIDN c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "1" "Exhibition Space 2024_LMA1_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" 512 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "2" "Exhibition Space 2024_LMA2_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "0" "Exhibition Space 2024_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LM0_final.hdr" 1024
+Done
+Done
+Done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LM0.lz4" 2 0 0 0
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_3" 1924 0 3 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_3" 1924 0 3 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_3" 1924 0 3 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_3" 1924 0 3 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_3" 1924 0 3 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_3" 1924 0 3 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_3" 1924 0 3 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_3" 1924 0 3 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_3" 1924 0 3 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_3" 1924 0 3 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_3" 1924 0 3 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_3" 1924 0 3 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_3" 1924 0 3 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_3" 1924 0 3 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_3" 1924 0 3 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_3" 1924 0 3 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_3" 1924 0 3 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_3" 1924 0 3 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_3" 1924 0 3 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_3" 1924 0 3 lights19.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_3" 1924 0 3 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_3" 1924 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 3 comp_3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_2" 4 0 2 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_2" 4 0 2 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_2" 4 0 2 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_2" 4 0 2 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_2" 4 0 2 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_2" 4 0 2 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_2" 4 0 2 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_2" 4 0 2 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_2" 4 0 2 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_2" 4 0 2 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_2" 4 0 2 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_2" 4 0 2 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_2" 4 0 2 lights12.bin
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_3" 1924 0 3 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_3" 1924 0 3 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_3" 1924 0 3 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_3" 1924 0 3 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_3" 1924 0 3 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_3" 1924 0 3 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_3" 1924 0 3 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_3" 1924 0 3 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_3" 1924 0 3 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_3" 1924 0 3 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_3" 1924 0 3 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_3" 1924 0 3 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_3" 1924 0 3 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_3" 1924 0 3 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_3" 1924 0 3 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_3" 1924 0 3 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_3" 1924 0 3 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_3" 1924 0 3 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_3" 1924 0 3 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_3" 1924 0 3 lights19.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_3" 1924 0 3 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_3" 1924 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 3 comp_3.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 3 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+2024-5-13
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_3" 1924 0 3 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_3" 1924 0 3 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_3" 1924 0 3 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_3" 1924 0 3 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_3" 1924 0 3 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_3" 1924 0 3 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_3" 1924 0 3 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_3" 1924 0 3 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_3" 1924 0 3 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_3" 1924 0 3 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_3" 1924 0 3 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_3" 1924 0 3 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_3" 1924 0 3 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_3" 1924 0 3 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_3" 1924 0 3 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_3" 1924 0 3 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_3" 1924 0 3 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_3" 1924 0 3 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_3" 1924 0 3 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_3" 1924 0 3 lights19.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_3" 1924 0 3 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_3" 1924 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 3 comp_3.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 3 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftrace fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA1.lz4" 2 0 1 0
+Running ftraceRTX.exe /sun hwtestdata light 4 0 0 direct0.bin
+Running ftrace.exe /sun hwtestdata light 4 0 0 direct0.bin
+Running denoiserLegacy c hwtestdata/image.lz4 hwtestdata/image.lz4 16 0
+Running denoiser c hwtestdata/image.lz4 hwtestdata/image.lz4 16 0
+Running denoiser72 c hwtestdata/image.lz4 hwtestdata/image.lz4 16 0
+Running denoiserOIDN c hwtestdata/image.lz4 hwtestdata/image.lz4 16 0
+Running denoiserOIDN2 c hwtestdata/image.lz4 hwtestdata/image.lz4 16 0
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA2.lz4" 2 0 2 0
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_3" 1924 0 3 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_3" 1924 0 3 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_3" 1924 0 3 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_3" 1924 0 3 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_3" 1924 0 3 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_3" 1924 0 3 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_3" 1924 0 3 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_3" 1924 0 3 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_3" 1924 0 3 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_3" 1924 0 3 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_3" 1924 0 3 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_3" 1924 0 3 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_3" 1924 0 3 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_3" 1924 0 3 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_3" 1924 0 3 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_3" 1924 0 3 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_3" 1924 0 3 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_3" 1924 0 3 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_3" 1924 0 3 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_3" 1924 0 3 lights19.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_3" 1924 0 3 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_3" 1924 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 3 comp_3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_1" 4 0 1 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_1" 4 0 1 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_1" 4 0 1 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_1" 4 0 1 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_1" 4 0 1 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_1" 4 0 1 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_1" 4 0 1 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_1" 4 0 1 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_1" 4 0 1 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_1" 4 0 1 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_1" 4 0 1 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_1" 4 0 1 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_1" 4 0 1 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_1" 4 0 1 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_1" 4 0 1 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_1" 4 0 1 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_1" 4 0 1 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_1" 4 0 1 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_1" 4 0 1 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_1" 4 0 1 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_0" 4 0 0 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_0" 4 0 0 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_0" 4 0 0 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_0" 4 0 0 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_0" 4 0 0 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_0" 4 0 0 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_0" 4 0 0 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_0" 4 0 0 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_0" 4 0 0 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_0" 4 0 0 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_0" 4 0 0 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_0" 4 0 0 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_0" 4 0 0 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_0" 4 0 0 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_0" 4 0 0 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_0" 4 0 0 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_0" 4 0 0 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_0" 4 0 0 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_0" 4 0 0 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_0" 4 0 0 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_2" 4 0 2 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_2" 4 0 2 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_2" 4 0 2 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_2" 4 0 2 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_2" 4 0 2 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_2" 4 0 2 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_2" 4 0 2 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_2" 4 0 2 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_2" 4 0 2 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_2" 4 0 2 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_2" 4 0 2 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_2" 4 0 2 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_2" 4 0 2 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_2" 4 0 2 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_2" 4 0 2 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_2" 4 0 2 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_2" 4 0 2 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_2" 4 0 2 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_2" 4 0 2 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_2" 4 0 2 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA10.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM00.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA20.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA11.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM01.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA21.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA12.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM02.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA22.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA13.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM03.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA23.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 3 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_final" 4 16 1 "gi_Exhibition Space 2024_LMA14.bin" "Exhibition Space 2024_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_final" 4 16 0 "gi_Exhibition Space 2024_LM04.bin" "Exhibition Space 2024_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_final" 4 16 2 "gi_Exhibition Space 2024_LMA24.bin" "Exhibition Space 2024_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 3 shcomp_3.bin
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "1" "Exhibition Space 2024_LMA1_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "0" "Exhibition Space 2024_LM0_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" 512 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "2" "Exhibition Space 2024_LMA2_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA2_final.hdr" 1024
+Done
+Done
+Done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA2.lz4" 2 0 2 0
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_3" 1924 0 3 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_3" 1924 0 3 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_3" 1924 0 3 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_3" 1924 0 3 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_3" 1924 0 3 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_3" 1924 0 3 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_3" 1924 0 3 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_3" 1924 0 3 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_3" 1924 0 3 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_3" 1924 0 3 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_3" 1924 0 3 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_3" 1924 0 3 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_3" 1924 0 3 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_3" 1924 0 3 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_3" 1924 0 3 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_3" 1924 0 3 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_3" 1924 0 3 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_3" 1924 0 3 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_3" 1924 0 3 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_3" 1924 0 3 lights19.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_3" 1924 0 3 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_3" 1924 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 3 comp_3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_1" 4 0 1 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_1" 4 0 1 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_1" 4 0 1 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_1" 4 0 1 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_1" 4 0 1 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_1" 4 0 1 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_1" 4 0 1 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_1" 4 0 1 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_1" 4 0 1 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_1" 4 0 1 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_1" 4 0 1 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_1" 4 0 1 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_1" 4 0 1 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_1" 4 0 1 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_1" 4 0 1 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_1" 4 0 1 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_1" 4 0 1 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_1" 4 0 1 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_1" 4 0 1 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_1" 4 0 1 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_0" 4 0 0 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_0" 4 0 0 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_0" 4 0 0 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_0" 4 0 0 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_0" 4 0 0 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_0" 4 0 0 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_0" 4 0 0 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_0" 4 0 0 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_0" 4 0 0 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_0" 4 0 0 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_0" 4 0 0 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_0" 4 0 0 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_0" 4 0 0 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_0" 4 0 0 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_0" 4 0 0 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_0" 4 0 0 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_0" 4 0 0 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_0" 4 0 0 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_0" 4 0 0 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_0" 4 0 0 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_2" 4 0 2 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_2" 4 0 2 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_2" 4 0 2 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_2" 4 0 2 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_2" 4 0 2 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_2" 4 0 2 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_2" 4 0 2 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_2" 4 0 2 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_2" 4 0 2 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_2" 4 0 2 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_2" 4 0 2 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_2" 4 0 2 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_2" 4 0 2 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_2" 4 0 2 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_2" 4 0 2 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_2" 4 0 2 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_2" 4 0 2 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_2" 4 0 2 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_2" 4 0 2 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_2" 4 0 2 lights19.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_21_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_22_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA10.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM00.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA20.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA11.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM01.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA21.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA12.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM02.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA22.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA13.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM03.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA23.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 3 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_final" 4 16 1 "gi_Exhibition Space 2024_LMA14.bin" "Exhibition Space 2024_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_final" 4 16 0 "gi_Exhibition Space 2024_LM04.bin" "Exhibition Space 2024_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_final" 4 16 2 "gi_Exhibition Space 2024_LMA24.bin" "Exhibition Space 2024_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 3 shcomp_3.bin
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "1" "Exhibition Space 2024_LMA1_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "0" "Exhibition Space 2024_LM0_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "2" "Exhibition Space 2024_LMA2_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA2_final.hdr" 1024
+2024-5-13
+Rendering UV GBuffer for Lightmapping Test_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Lightmapping Test_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_2" 1924 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 2 comp_2.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 2 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 2 shcomp_2.bin
+Done
+Done
+Done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for Lightmapping Test_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Lightmapping Test_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Lightmapping Test_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Lightmapping Test_LMA1.lz4" 2 0 1 0
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_2" 1924 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 2 comp_2.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_1_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_1_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LM0_diffuse" 4 16 0 "gi_Lightmapping Test_LM00.bin" "Lightmapping Test_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LMA1_diffuse" 4 16 1 "gi_Lightmapping Test_LMA10.bin" "Lightmapping Test_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LM0_diffuse" 4 16 0 "gi_Lightmapping Test_LM01.bin" "Lightmapping Test_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LMA1_diffuse" 4 16 1 "gi_Lightmapping Test_LMA11.bin" "Lightmapping Test_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LM0_diffuse" 4 16 0 "gi_Lightmapping Test_LM02.bin" "Lightmapping Test_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LMA1_diffuse" 4 16 1 "gi_Lightmapping Test_LMA12.bin" "Lightmapping Test_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LM0_diffuse" 4 16 0 "gi_Lightmapping Test_LM03.bin" "Lightmapping Test_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LMA1_diffuse" 4 16 1 "gi_Lightmapping Test_LMA13.bin" "Lightmapping Test_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 2 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LM0_final" 4 16 0 "gi_Lightmapping Test_LM04.bin" "Lightmapping Test_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Lightmapping Test_LMA1_final" 4 16 1 "gi_Lightmapping Test_LMA14.bin" "Lightmapping Test_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 2 shcomp_2.bin
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Lightmapping Test_LM0_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Lightmapping Test_LM0_final_HDR.lz4" 256 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "0" "Lightmapping Test_LM0_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Lightmapping Test_LMA1_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Lightmapping Test_LMA1_final_HDR.lz4" 64 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "1" "Lightmapping Test_LMA1_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Lightmapping Test_LM0_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Lightmapping Test_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Lightmapping Test_LMA1_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Lightmapping Test_LMA1_final.hdr" 1024
+2024-5-22
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA6 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for Exhibition Space 2024_LMA7 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA6.lz4" 2 0 6 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA7.lz4" 2 0 7 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LMA1.lz4" 2 0 1 0
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_8" 1924 0 8 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_8" 1924 0 8 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 8 comp_8.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_6" 4 0 6 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_6" 4 0 6 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA6" 4 0 6 comp_6.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_7" 4 0 7 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_7" 4 0 7 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA7" 4 0 7 comp_7.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA6_diffuse" 4 16 6 "gi_Exhibition Space 2024_LMA60.bin" "Exhibition Space 2024_LMA6_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA20.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA4_diffuse" 4 16 4 "gi_Exhibition Space 2024_LMA40.bin" "Exhibition Space 2024_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM00.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA7_diffuse" 4 16 7 "gi_Exhibition Space 2024_LMA70.bin" "Exhibition Space 2024_LMA7_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA3_diffuse" 4 16 3 "gi_Exhibition Space 2024_LMA30.bin" "Exhibition Space 2024_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA5_diffuse" 4 16 5 "gi_Exhibition Space 2024_LMA50.bin" "Exhibition Space 2024_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA10.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA6_diffuse" 4 16 6 "gi_Exhibition Space 2024_LMA61.bin" "Exhibition Space 2024_LMA6_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA21.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA4_diffuse" 4 16 4 "gi_Exhibition Space 2024_LMA41.bin" "Exhibition Space 2024_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM01.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA7_diffuse" 4 16 7 "gi_Exhibition Space 2024_LMA71.bin" "Exhibition Space 2024_LMA7_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA3_diffuse" 4 16 3 "gi_Exhibition Space 2024_LMA31.bin" "Exhibition Space 2024_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA5_diffuse" 4 16 5 "gi_Exhibition Space 2024_LMA51.bin" "Exhibition Space 2024_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA11.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA6_diffuse" 4 16 6 "gi_Exhibition Space 2024_LMA62.bin" "Exhibition Space 2024_LMA6_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA22.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA4_diffuse" 4 16 4 "gi_Exhibition Space 2024_LMA42.bin" "Exhibition Space 2024_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM02.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA7_diffuse" 4 16 7 "gi_Exhibition Space 2024_LMA72.bin" "Exhibition Space 2024_LMA7_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA3_diffuse" 4 16 3 "gi_Exhibition Space 2024_LMA32.bin" "Exhibition Space 2024_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA5_diffuse" 4 16 5 "gi_Exhibition Space 2024_LMA52.bin" "Exhibition Space 2024_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA12.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA6_diffuse" 4 16 6 "gi_Exhibition Space 2024_LMA63.bin" "Exhibition Space 2024_LMA6_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_diffuse" 4 16 2 "gi_Exhibition Space 2024_LMA23.bin" "Exhibition Space 2024_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA4_diffuse" 4 16 4 "gi_Exhibition Space 2024_LMA43.bin" "Exhibition Space 2024_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM03.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA7_diffuse" 4 16 7 "gi_Exhibition Space 2024_LMA73.bin" "Exhibition Space 2024_LMA7_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA3_diffuse" 4 16 3 "gi_Exhibition Space 2024_LMA33.bin" "Exhibition Space 2024_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA5_diffuse" 4 16 5 "gi_Exhibition Space 2024_LMA53.bin" "Exhibition Space 2024_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_diffuse" 4 16 1 "gi_Exhibition Space 2024_LMA13.bin" "Exhibition Space 2024_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 8 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA6_final" 4 16 6 "gi_Exhibition Space 2024_LMA64.bin" "Exhibition Space 2024_LMA6_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA2_final" 4 16 2 "gi_Exhibition Space 2024_LMA24.bin" "Exhibition Space 2024_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA4_final" 4 16 4 "gi_Exhibition Space 2024_LMA44.bin" "Exhibition Space 2024_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_final" 4 16 0 "gi_Exhibition Space 2024_LM04.bin" "Exhibition Space 2024_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA7_final" 4 16 7 "gi_Exhibition Space 2024_LMA74.bin" "Exhibition Space 2024_LMA7_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA3_final" 4 16 3 "gi_Exhibition Space 2024_LMA34.bin" "Exhibition Space 2024_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA5_final" 4 16 5 "gi_Exhibition Space 2024_LMA54.bin" "Exhibition Space 2024_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LMA1_final" 4 16 1 "gi_Exhibition Space 2024_LMA14.bin" "Exhibition Space 2024_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 8 shcomp_8.bin
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA6_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA6_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "6" "Exhibition Space 2024_LMA6_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "2" "Exhibition Space 2024_LMA2_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA4_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "4" "Exhibition Space 2024_LMA4_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "0" "Exhibition Space 2024_LM0_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA7_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA7_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "7" "Exhibition Space 2024_LMA7_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA3_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "3" "Exhibition Space 2024_LMA3_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA5_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "5" "Exhibition Space 2024_LMA5_final_HDR.lz4"
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "1" "Exhibition Space 2024_LMA1_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA6_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA6_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA2_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA4_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA7_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA7_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA3_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA5_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LMA1_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LMA1_final.hdr" 1024
+Done
+Done
+Done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LM0.lz4" 2 0 0 0
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_1" 1924 0 1 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_1" 1924 0 1 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_1" 1924 0 1 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_1" 1924 0 1 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_1" 1924 0 1 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_1" 1924 0 1 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_1" 1924 0 1 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_1" 1924 0 1 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_1" 1924 0 1 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_1" 1924 0 1 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_1" 1924 0 1 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_1" 1924 0 1 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_1" 1924 0 1 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_1" 1924 0 1 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_1" 1924 0 1 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_1" 1924 0 1 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_1" 1924 0 1 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_1" 1924 0 1 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_1" 1924 0 1 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_1" 1924 0 1 lights19.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_1" 1924 0 1 lights20.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_1" 1924 0 1 lights21.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_23_1" 1924 0 1 lights22.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_24_1" 1924 0 1 lights23.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_25_1" 1924 0 1 lights24.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_26_1" 1924 0 1 lights25.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_27_1" 1924 0 1 lights26.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_28_1" 1924 0 1 lights27.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_29_1" 1924 0 1 lights28.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_30_1" 1924 0 1 lights29.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_31_1" 1924 0 1 lights30.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_32_1" 1924 0 1 lights31.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_33_1" 1924 0 1 lights32.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_34_1" 1924 0 1 lights33.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_35_1" 1924 0 1 lights34.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_36_1" 1924 0 1 lights35.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_37_1" 1924 0 1 lights36.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_38_1" 1924 0 1 lights37.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_39_1" 1924 0 1 lights38.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_40_1" 1924 0 1 lights39.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_41_1" 1924 0 1 lights40.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_42_1" 1924 0 1 lights41.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_43_1" 1924 0 1 lights42.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_44_1" 1924 0 1 lights43.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_45_1" 1924 0 1 lights44.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_46_1" 1924 0 1 lights45.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_47_1" 1924 0 1 lights46.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_48_1" 1924 0 1 sky0.bin
+Running ftraceRTX skyprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_49_1" 1924 0 1 sky1.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_50_1" 1924 0 1 direct0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_51_1" 1924 0 1 direct1.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 1 comp_1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_0" 4 0 0 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_0" 4 0 0 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_0" 4 0 0 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_0" 4 0 0 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_0" 4 0 0 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_0" 4 0 0 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_0" 4 0 0 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_0" 4 0 0 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_0" 4 0 0 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_0" 4 0 0 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_0" 4 0 0 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_0" 4 0 0 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_0" 4 0 0 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_0" 4 0 0 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_0" 4 0 0 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_0" 4 0 0 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_0" 4 0 0 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_0" 4 0 0 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_0" 4 0 0 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_0" 4 0 0 lights19.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_21_0" 4 0 0 lights20.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_22_0" 4 0 0 lights21.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_23_0" 4 0 0 lights22.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_24_0" 4 0 0 lights23.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_25_0" 4 0 0 lights24.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_26_0" 4 0 0 lights25.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_27_0" 4 0 0 lights26.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_28_0" 4 0 0 lights27.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_29_0" 4 0 0 lights28.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_30_0" 4 0 0 lights29.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_31_0" 4 0 0 lights30.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_32_0" 4 0 0 lights31.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_33_0" 4 0 0 lights32.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_34_0" 4 0 0 lights33.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_35_0" 4 0 0 lights34.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_36_0" 4 0 0 lights35.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_37_0" 4 0 0 lights36.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_38_0" 4 0 0 lights37.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_39_0" 4 0 0 lights38.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_40_0" 4 0 0 lights39.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_41_0" 4 0 0 lights40.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_42_0" 4 0 0 lights41.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_43_0" 4 0 0 lights42.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_44_0" 4 0 0 lights43.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_45_0" 4 0 0 lights44.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_46_0" 4 0 0 lights45.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_47_0" 4 0 0 lights46.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_48_0" 4 0 0 sky0.bin
+Running ftraceRTX sky "C:\Users\andre\AppData\Local\Temp\frender" "light_49_0" 4 0 0 sky1.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_50_0" 4 0 0 direct0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_51_0" 4 0 0 direct1.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM00.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM01.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM02.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM03.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 1 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_final" 4 16 0 "gi_Exhibition Space 2024_LM04.bin" "Exhibition Space 2024_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 1 shcomp_1.bin
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "0" "Exhibition Space 2024_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LM0_final.hdr" 1024
+Done
+Done
+Done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+Rendering UV GBuffer for Exhibition Space 2024_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for probes 256
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\andre\AppData\Local\Temp\frender" "uvpos_Exhibition Space 2024_LM0.lz4" 2 0 0 0
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_1_1" 1924 0 1 lights0.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_2_1" 1924 0 1 lights1.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_3_1" 1924 0 1 lights2.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_4_1" 1924 0 1 lights3.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_5_1" 1924 0 1 lights4.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_6_1" 1924 0 1 lights5.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_7_1" 1924 0 1 lights6.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_8_1" 1924 0 1 lights7.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_9_1" 1924 0 1 lights8.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_10_1" 1924 0 1 lights9.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_11_1" 1924 0 1 lights10.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_12_1" 1924 0 1 lights11.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_13_1" 1924 0 1 lights12.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_14_1" 1924 0 1 lights13.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_15_1" 1924 0 1 lights14.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_16_1" 1924 0 1 lights15.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_17_1" 1924 0 1 lights16.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_18_1" 1924 0 1 lights17.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_19_1" 1924 0 1 lights18.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_20_1" 1924 0 1 lights19.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_21_1" 1924 0 1 lights20.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_22_1" 1924 0 1 lights21.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_23_1" 1924 0 1 lights22.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_24_1" 1924 0 1 lights23.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_25_1" 1924 0 1 lights24.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_26_1" 1924 0 1 lights25.bin
+Running ftraceRTX arealightprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_27_1" 1924 0 1 lights26.bin
+Running ftraceRTX skycubemapprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_28_1" 1924 0 1 sky0.bin
+Running ftraceRTX sunprobesh "C:\Users\andre\AppData\Local\Temp\frender" "light_29_1" 1924 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "probes" 4 0 1 comp_1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_1_0" 4 0 0 lights0.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_2_0" 4 0 0 lights1.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_3_0" 4 0 0 lights2.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_4_0" 4 0 0 lights3.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_5_0" 4 0 0 lights4.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_6_0" 4 0 0 lights5.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_7_0" 4 0 0 lights6.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_8_0" 4 0 0 lights7.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_9_0" 4 0 0 lights8.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_10_0" 4 0 0 lights9.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_11_0" 4 0 0 lights10.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_12_0" 4 0 0 lights11.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_13_0" 4 0 0 lights12.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_14_0" 4 0 0 lights13.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_15_0" 4 0 0 lights14.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_16_0" 4 0 0 lights15.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_17_0" 4 0 0 lights16.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_18_0" 4 0 0 lights17.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_19_0" 4 0 0 lights18.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_20_0" 4 0 0 lights19.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_21_0" 4 0 0 lights20.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_22_0" 4 0 0 lights21.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_23_0" 4 0 0 lights22.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_24_0" 4 0 0 lights23.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_25_0" 4 0 0 lights24.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_26_0" 4 0 0 lights25.bin
+Running ftraceRTX arealight "C:\Users\andre\AppData\Local\Temp\frender" "light_27_0" 4 0 0 lights26.bin
+Running ftraceRTX skycubemap "C:\Users\andre\AppData\Local\Temp\frender" "light_28_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\andre\AppData\Local\Temp\frender" "light_29_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM00.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM01.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM02.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_diffuse" 4 16 0 "gi_Exhibition Space 2024_LM03.bin" "Exhibition Space 2024_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgiprobesh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final" 1924 16 1 "gi_probes4.bin" "probes_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\andre\AppData\Local\Temp\frender" "Exhibition Space 2024_LM0_final" 4 16 0 "gi_Exhibition Space 2024_LM04.bin" "Exhibition Space 2024_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addsh "C:\Users\andre\AppData\Local\Temp\frender" "probes_final_" 4 0 1 shcomp_1.bin
+Running denoiserOIDN2 c "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\andre\AppData\Local\Temp\frender" "0" "Exhibition Space 2024_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\andre\AppData\Local\Temp\frender/Exhibition Space 2024_LM0_final_HDR.lz4" "C:/Users/andre/Projects/Unity/VRExhibit/VRart/Assets/BakeryLightmaps/Exhibition Space 2024_LM0_final.hdr" 1024

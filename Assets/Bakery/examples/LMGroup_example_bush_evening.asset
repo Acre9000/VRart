@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolution: 512
   bitmask: 1
-  id: 1
+  id: 0
   sortingID: 0
   isImplicit: 0
   area: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
   renderMode: 1000
   renderDirMode: 1000
   atlasPacker: 0
+  holeFilling: 0
   computeSSS: 0
   sssSamples: 16
   sssDensity: 10
@@ -42,4 +43,4 @@ MonoBehaviour:
   overridePath: 
   fixPos3D: 0
   voxelSize: {x: 1, y: 1, z: 1}
-  passedFilter: 4
+  passedFilter: 1

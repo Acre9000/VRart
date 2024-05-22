@@ -19,21 +19,22 @@ public class ftClient
     public const byte SERVERTASK_DENOISE6 = 6;
     public const byte SERVERTASK_DENOISE7 = 7;
     public const byte SERVERTASK_DENOISEOIDN = 8;
+    public const byte SERVERTASK_DENOISEOIDN2 = 9;
 
-    public const byte SERVERTASK_HF2HDR = 9;
-    public const byte SERVERTASK_RGBA2TGA = 10;
-    public const byte SERVERTASK_SEAMFIX = 11;
+    public const byte SERVERTASK_HF2HDR = 10;
+    public const byte SERVERTASK_RGBA2TGA = 11;
+    public const byte SERVERTASK_SEAMFIX = 12;
 
-    public const byte SERVERTASK_LMREBAKE = 12;
-    public const byte SERVERTASK_LMREBAKESIMPLE = 13;
-    public const byte SERVERTASK_LODGEN = 14;
-    public const byte SERVERTASK_LODGENINIT = 15;
-    public const byte SERVERTASK_GIPARAMS = 16;
-    public const byte SERVERTASK_RECEIVEFILE = 17;
-    public const byte SERVERTASK_REPORTSTATUS = 18;
-    public const byte SERVERTASK_SETSCENENAME = 19;
-    public const byte SERVERTASK_GETDATA = 20;
-    public const byte SERVERTASK_GETDATAREADY = 21;
+    public const byte SERVERTASK_LMREBAKE = 13;
+    public const byte SERVERTASK_LMREBAKESIMPLE = 14;
+    public const byte SERVERTASK_LODGEN = 15;
+    public const byte SERVERTASK_LODGENINIT = 16;
+    public const byte SERVERTASK_GIPARAMS = 17;
+    public const byte SERVERTASK_RECEIVEFILE = 18;
+    public const byte SERVERTASK_REPORTSTATUS = 19;
+    public const byte SERVERTASK_SETSCENENAME = 20;
+    public const byte SERVERTASK_GETDATA = 21;
+    public const byte SERVERTASK_GETDATAREADY = 22;
 
     public const byte SERVERERROR_IDLE = 0;
     public const byte SERVERERROR_COPY = 1;
@@ -87,6 +88,7 @@ public class ftClient
         {"denoiser", SERVERTASK_DENOISE6},
         {"denoiser72", SERVERTASK_DENOISE7},
         {"denoiserOIDN", SERVERTASK_DENOISEOIDN},
+        {"denoiserOIDN2", SERVERTASK_DENOISEOIDN2},
 
         {"halffloat2hdr", SERVERTASK_HF2HDR},
         {"rgba2tga", SERVERTASK_RGBA2TGA},

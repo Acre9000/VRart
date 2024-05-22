@@ -29,12 +29,16 @@ public class ftAdditionalConfig
     // Calculate multiple point lights in one pass. No reason to disable it, unless there is a bug.
     public static bool batchPointLights = true;
 
+    public static bool batchAreaLights = true;
+
 #if UNITY_2017_3_OR_NEWER
     public const int sectorFarSphereResolution = 256;
 #else
     // older version can't handle 32 bit meshes
     public const int sectorFarSphereResolution = 64;
 #endif
+
+    public const int volumeSceneLODLevel = -1;
 
 /*
     Following settings are moved to Project Settings

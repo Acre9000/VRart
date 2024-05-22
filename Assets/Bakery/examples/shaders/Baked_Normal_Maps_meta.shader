@@ -48,10 +48,10 @@ Shader "Bakery/Example shader with Normal Meta Pass"
             Cull Off
             CGPROGRAM
 
-            #include"UnityStandardMeta.cginc"
+            #include "UnityStandardMeta.cginc"
 
             // Include Bakery meta pass
-            #include"Bakery/BakeryMetaPass.cginc"
+            #include "../../BakeryMetaPass.cginc"
 
             float4 frag_customMeta (v2f_bakeryMeta i): SV_Target
             {

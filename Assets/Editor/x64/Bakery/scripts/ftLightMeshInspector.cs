@@ -18,6 +18,7 @@ public class ftLightMeshInspector : UnityEditor.Editor
     SerializedProperty ftraceLightCutoff;
     SerializedProperty ftraceLightSamples;
     SerializedProperty ftraceLightSamples2;
+    SerializedProperty ftraceLightSamples2_previous;
     SerializedProperty ftraceLightBitmask;
     SerializedProperty ftraceLightSelfShadow;
     SerializedProperty ftraceLightShadowmask;
@@ -42,6 +43,7 @@ public class ftLightMeshInspector : UnityEditor.Editor
         ftraceLightCutoff = obj.FindProperty("cutoff");
         ftraceLightSamples = obj.FindProperty("samples");
         ftraceLightSamples2 = obj.FindProperty("samples2");
+        ftraceLightSamples2_previous = obj.FindProperty("samples2_previous");
         ftraceLightBitmask = obj.FindProperty("bitmask");
         ftraceLightSelfShadow = obj.FindProperty("selfShadow");
         ftraceLightShadowmask = obj.FindProperty("shadowmask");
@@ -215,7 +217,12 @@ public class ftLightMeshInspector : UnityEditor.Editor
 
             if (ftraceLightSelfShadow.boolValue)
             {
+                if (ftraceLightSamples2_previous.intValue != ftraceLightSamples2.intValue)
+                {
+                    ftraceLightSamples2.intValue = ftraceLightSamples2_previous.intValue;
+                }
                 EditorGUILayout.PropertyField(ftraceLightSamples2, new GUIContent("Samples Near", "The amount of rays traced hemispherically in the proximity of this mesh. Set to 0 to only trace with 'Samples Far'."));
+                ftraceLightSamples2_previous.intValue = ftraceLightSamples2.intValue;
             }
             else
             {

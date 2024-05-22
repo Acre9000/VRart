@@ -23,6 +23,7 @@ public class BakerySector : MonoBehaviour
     public List<Renderer> previewDisabledRenderers;
     public List<GameObject> previewTempObjects;
     public bool previewEnabled = false;
+    public bool bakeChildLightProbeGroups = false;
 #endif
 
     void OnDrawGizmosSelected()

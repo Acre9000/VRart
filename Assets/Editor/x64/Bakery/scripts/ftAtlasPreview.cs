@@ -15,6 +15,21 @@ public class ftAtlasPreview : EditorWindow
 
     public static ftAtlasPreview instance;
 
+    public static bool selectionChanged = false;
+
+    public static void SelectionCallback()
+    {
+        if (instance == null) return;
+        instance.update = true;
+        instance.OnGUI();
+    }
+
+    void Awake()
+    {
+         Selection.selectionChanged -= SelectionCallback;
+         Selection.selectionChanged += SelectionCallback;
+    }
+
     public void OnGUI()
     {
         instance = this;
@@ -80,6 +95,18 @@ public class ftAtlasPreview : EditorWindow
                 for(int s=0; s<numSubs; s++)
                 {
                     Graphics.DrawMeshNow(mesh, worldMatrix, s);
+                }
+                if (System.Array.IndexOf(Selection.objects, objs[i].gameObject) >= 0)
+                {
+                    GL.wireframe = true;
+                    Shader.SetGlobalFloat("isSelected", 1.0f);
+                    mat.SetPass(0);
+                    for(int s=0; s<numSubs; s++)
+                    {
+                        Graphics.DrawMeshNow(mesh, worldMatrix, s);
+                    }
+                    GL.wireframe = false;
+                    Shader.SetGlobalFloat("isSelected", 0.0f);
                 }
                 grp = groups[i];
             }

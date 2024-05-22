@@ -132,7 +132,7 @@
 )
 {
 	.reg .pred 	%p<23>;
-	.reg .f32 	%f<137>;
+	.reg .f32 	%f<138>;
 	.reg .b32 	%r<19>;
 
 
@@ -146,11 +146,11 @@
 	add.f32 	%f22, %f2, %f21;
 	cvt.rzi.f32.f32	%f23, %f22;
 	setp.gt.f32	%p2, %f20, 0f4B000000;
-	selp.f32	%f133, %f2, %f23, %p2;
+	selp.f32	%f134, %f2, %f23, %p2;
 	setp.geu.f32	%p3, %f20, 0f3F000000;
 	@%p3 bra 	BB0_2;
 
-	cvt.rzi.f32.f32	%f133, %f2;
+	cvt.rzi.f32.f32	%f134, %f2;
 
 BB0_2:
 	ld.global.f32 	%f24, [ray+12];
@@ -168,7 +168,7 @@ BB0_2:
 	st.global.u32 	[payload], %r5;
 	setp.leu.f32	%p4, %f32, 0f00000000;
 	ld.global.u32 	%r6, [lightLMID];
-	cvt.rzi.s32.f32	%r1, %f133;
+	cvt.rzi.s32.f32	%r1, %f134;
 	setp.eq.s32	%p5, %r1, %r6;
 	and.pred  	%p6, %p4, %p5;
 	@!%p6 bra 	BB0_15;
@@ -271,27 +271,27 @@ BB0_3:
 	setp.lt.f32	%p10, %f99, 0fC2D20000;
 	selp.f32	%f111, 0f00000000, %f110, %p10;
 	setp.gt.f32	%p11, %f99, 0f42D20000;
-	selp.f32	%f134, 0f7F800000, %f111, %p11;
-	setp.eq.f32	%p12, %f134, 0f7F800000;
+	selp.f32	%f135, 0f7F800000, %f111, %p11;
+	setp.eq.f32	%p12, %f135, 0f7F800000;
 	@%p12 bra 	BB0_5;
 
-	fma.rn.f32 	%f134, %f134, %f9, %f134;
+	fma.rn.f32 	%f135, %f135, %f9, %f135;
 
 BB0_5:
 	setp.lt.f32	%p13, %f6, 0f00000000;
 	setp.eq.f32	%p14, %f7, 0f3F800000;
 	and.pred  	%p1, %p13, %p14;
-	mov.b32 	 %r13, %f134;
+	mov.b32 	 %r13, %f135;
 	xor.b32  	%r14, %r13, -2147483648;
 	mov.b32 	 %f112, %r14;
-	selp.f32	%f136, %f112, %f134, %p1;
+	selp.f32	%f137, %f112, %f135, %p1;
 	setp.eq.f32	%p15, %f6, 0f00000000;
 	@%p15 bra 	BB0_8;
 	bra.uni 	BB0_6;
 
 BB0_8:
 	add.f32 	%f115, %f6, %f6;
-	selp.f32	%f136, %f115, 0f00000000, %p14;
+	selp.f32	%f137, %f115, 0f00000000, %p14;
 	bra.uni 	BB0_9;
 
 BB0_6:
@@ -300,7 +300,7 @@ BB0_6:
 
 	cvt.rzi.f32.f32	%f114, %f40;
 	setp.neu.f32	%p17, %f114, 0f40800000;
-	selp.f32	%f136, 0f7FFFFFFF, %f136, %p17;
+	selp.f32	%f137, 0f7FFFFFFF, %f137, %p17;
 
 BB0_9:
 	add.f32 	%f116, %f8, 0f40800000;
@@ -313,36 +313,37 @@ BB0_9:
 	bra.uni 	BB0_11;
 
 BB0_13:
-	add.f32 	%f136, %f6, 0f40800000;
+	add.f32 	%f137, %f6, 0f40800000;
 	bra.uni 	BB0_14;
 
 BB0_11:
 	setp.neu.f32	%p21, %f8, 0f7F800000;
 	@%p21 bra 	BB0_14;
 
-	selp.f32	%f136, 0fFF800000, 0f7F800000, %p1;
+	selp.f32	%f137, 0fFF800000, 0f7F800000, %p1;
 
 BB0_14:
 	mov.f32 	%f125, 0f3F800000;
-	sub.f32 	%f126, %f125, %f136;
+	sub.f32 	%f126, %f125, %f137;
 	setp.eq.f32	%p22, %f6, 0f3F800000;
 	selp.f32	%f127, 0f00000000, %f126, %p22;
 	cvt.sat.f32.f32	%f128, %f127;
 	ld.global.u32 	%r16, [lightCookie];
 	mul.lo.s32 	%r18, %r1, 10;
 	cvt.rn.f32.s32	%f129, %r18;
-	sub.f32 	%f121, %f1, %f129;
+	sub.f32 	%f130, %f1, %f129;
+	neg.f32 	%f121, %f130;
 	ld.global.f32 	%f122, [texCoords+4];
 	mov.u32 	%r17, 2;
 	// inline asm
 	call (%f117, %f118, %f119, %f120), _rt_texture_get_f_id, (%r16, %r17, %f121, %f122, %f91, %f91);
 	// inline asm
-	mul.f32 	%f130, %f128, %f117;
-	mul.f32 	%f131, %f128, %f118;
-	mul.f32 	%f132, %f128, %f119;
-	st.global.f32 	[payload], %f130;
-	st.global.f32 	[payload+4], %f131;
-	st.global.f32 	[payload+8], %f132;
+	mul.f32 	%f131, %f128, %f117;
+	mul.f32 	%f132, %f128, %f118;
+	mul.f32 	%f133, %f128, %f119;
+	st.global.f32 	[payload], %f131;
+	st.global.f32 	[payload+4], %f132;
+	st.global.f32 	[payload+8], %f133;
 
 BB0_15:
 	ret;

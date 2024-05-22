@@ -23,7 +23,7 @@ public class ftSceneView
 
 public class ftSceneView
 {
-    static Shader checkerShader;
+    static Shader checkerShader, projShader;
     public static bool enabled;
     static List<Texture2D> tempTextures;
 
@@ -155,6 +155,42 @@ public class ftSceneView
             Atlas();
             ApplyNewProperties();
         }
+        sceneView.Repaint();
+    }
+
+    public static void ToggleProjMode()
+    {
+        if (enabled)
+        {
+            ToggleChecker(); // same code for turning it off
+            return;
+        }
+
+        // Different code for turning it on
+
+        var sceneView = SceneView.lastActiveSceneView;
+        if (sceneView == null)
+        {
+            Debug.LogError("Can't get SceneView");
+            return;
+        }
+
+        //if (projShader == null)
+        {
+            projShader = Shader.Find("Hidden/ftProjection");
+            if (projShader == null)
+            {
+                Debug.LogError("Can't load projection shader");
+                return;
+            }
+        }
+        sceneView.SetSceneViewShaderReplace(projShader, null);
+        enabled = true;
+
+        var gstorage = ftLightmaps.GetGlobalStorage();
+        gstorage.checkerPreviewOn = true;
+        EditorUtility.SetDirty(gstorage);
+
         sceneView.Repaint();
     }
 

@@ -77,7 +77,8 @@ public class ftGlobalStorage : ScriptableObject
         Optix5 = 5, // "Legacy denoiser"
         Optix6 = 6, // Default denoiser
         Optix7 = 7, // New denoiser
-        OpenImageDenoise = 100
+        OpenImageDenoise = 100,
+        OpenImageDenoise2 = 101
     };
 
     // UV adjustment
@@ -128,6 +129,9 @@ public class ftGlobalStorage : ScriptableObject
 
     [SerializeField]
     public bool runsOIDN = true;
+
+    [SerializeField]
+    public bool runsOIDN2 = true;
 
     [SerializeField]
     public bool alwaysEnableRTX = false;
@@ -286,6 +290,8 @@ public class ftGlobalStorage : ScriptableObject
     [SerializeField]
     public bool renderSettingsCompressVolumes = false;
     [SerializeField]
+    public int renderSettingsBatchAreaLightSampleLimit = 0;
+    [SerializeField]
     public bool renderSettingsRTPVExport = true;
     [SerializeField]
     public bool renderSettingsRTPVSceneView = false;
@@ -308,8 +314,8 @@ public class ftGlobalStorage : ScriptableObject
     public List<int> modifiedMeshUnwrapperArray;
 
     // For parallel import
-    public List<string> texSettingsKey;
-    public List<Vector2> texSettingsVal;
+    //public List<string> texSettingsKey;
+    //public List<Vector2> texSettingsVal;
 
     public void InitModifiedMeshMap(string assetPath) {
 

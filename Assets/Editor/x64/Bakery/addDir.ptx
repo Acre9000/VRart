@@ -102,7 +102,7 @@
 {
 	.reg .pred 	%p<4>;
 	.reg .b16 	%rs<20>;
-	.reg .f32 	%f<88>;
+	.reg .f32 	%f<91>;
 	.reg .b32 	%r<79>;
 	.reg .b64 	%rd<80>;
 
@@ -199,9 +199,9 @@
 	mul.f32 	%f44, %f32, %f43;
 	mul.f32 	%f45, %f35, %f43;
 	mul.f32 	%f46, %f38, %f43;
-	fma.rn.f32 	%f1, %f22, %f44, %f23;
-	fma.rn.f32 	%f2, %f22, %f45, %f24;
-	fma.rn.f32 	%f3, %f22, %f46, %f25;
+	fma.rn.f32 	%f47, %f22, %f44, %f23;
+	fma.rn.f32 	%f48, %f22, %f45, %f24;
+	fma.rn.f32 	%f49, %f22, %f46, %f25;
 	ld.global.v2.u32 	{%r48, %r49}, [pixelID];
 	cvt.u64.u32	%rd46, %r48;
 	cvt.u64.u32	%rd47, %r49;
@@ -209,30 +209,33 @@
 	call (%rd44), _rt_buffer_get_64, (%rd27, %r18, %r17, %rd46, %rd47, %rd55, %rd55);
 	// inline asm
 	ld.u8 	%rs8, [%rd44+3];
-	cvt.rn.f32.u16	%f47, %rs8;
-	div.rn.f32 	%f48, %f47, 0f437F0000;
+	cvt.rn.f32.u16	%f50, %rs8;
+	div.rn.f32 	%f51, %f50, 0f437F0000;
 	ld.global.v2.u32 	{%r52, %r53}, [pixelID];
 	cvt.u64.u32	%rd52, %r52;
 	cvt.u64.u32	%rd53, %r53;
 	// inline asm
 	call (%rd50), _rt_buffer_get_64, (%rd21, %r18, %r19, %rd52, %rd53, %rd55, %rd55);
 	// inline asm
-	ld.f32 	%f49, [%rd50+12];
-	min.f32 	%f87, %f48, %f49;
-	ld.global.f32 	%f50, [DoNormalize];
-	setp.gt.f32	%p1, %f50, 0f3F000000;
+	ld.f32 	%f52, [%rd50+12];
+	min.f32 	%f90, %f51, %f52;
+	mul.f32 	%f2, %f47, %f90;
+	mul.f32 	%f3, %f48, %f90;
+	mul.f32 	%f4, %f49, %f90;
+	ld.global.f32 	%f53, [DoNormalize];
+	setp.gt.f32	%p1, %f53, 0f3F000000;
 	@%p1 bra 	BB0_2;
 	bra.uni 	BB0_1;
 
 BB0_2:
-	mul.f32 	%f54, %f2, %f2;
-	fma.rn.f32 	%f55, %f1, %f1, %f54;
-	fma.rn.f32 	%f56, %f3, %f3, %f55;
-	sqrt.rn.f32 	%f57, %f56;
-	rcp.rn.f32 	%f58, %f57;
-	mul.f32 	%f5, %f1, %f58;
-	mul.f32 	%f6, %f2, %f58;
-	mul.f32 	%f7, %f3, %f58;
+	mul.f32 	%f57, %f3, %f3;
+	fma.rn.f32 	%f58, %f2, %f2, %f57;
+	fma.rn.f32 	%f59, %f4, %f4, %f58;
+	sqrt.rn.f32 	%f60, %f59;
+	rcp.rn.f32 	%f61, %f60;
+	mul.f32 	%f5, %f2, %f61;
+	mul.f32 	%f6, %f3, %f61;
+	mul.f32 	%f7, %f4, %f61;
 	ld.global.v2.u32 	{%r64, %r65}, [pixelID];
 	cvt.u64.u32	%rd68, %r64;
 	cvt.u64.u32	%rd69, %r65;
@@ -248,41 +251,41 @@ BB0_2:
 	cvt.u16.u32	%rs10, %r1;
 	or.b16  	%rs11, %rs10, %rs9;
 	setp.eq.s16	%p2, %rs11, 0;
-	mov.f32 	%f84, 0f00000000;
-	mov.f32 	%f85, %f84;
-	mov.f32 	%f86, %f84;
+	mov.f32 	%f87, 0f00000000;
+	mov.f32 	%f88, %f87;
+	mov.f32 	%f89, %f87;
 	@%p2 bra 	BB0_4;
 
 	ld.u8 	%rs12, [%rd66+1];
 	and.b16  	%rs14, %rs10, 255;
-	cvt.rn.f32.u16	%f59, %rs14;
-	div.rn.f32 	%f60, %f59, 0f437F0000;
-	fma.rn.f32 	%f61, %f60, 0f40000000, 0fBF800000;
-	cvt.rn.f32.u16	%f62, %rs12;
+	cvt.rn.f32.u16	%f62, %rs14;
 	div.rn.f32 	%f63, %f62, 0f437F0000;
 	fma.rn.f32 	%f64, %f63, 0f40000000, 0fBF800000;
-	cvt.rn.f32.u16	%f65, %rs9;
+	cvt.rn.f32.u16	%f65, %rs12;
 	div.rn.f32 	%f66, %f65, 0f437F0000;
 	fma.rn.f32 	%f67, %f66, 0f40000000, 0fBF800000;
-	mul.f32 	%f68, %f64, %f64;
-	fma.rn.f32 	%f69, %f61, %f61, %f68;
-	fma.rn.f32 	%f70, %f67, %f67, %f69;
-	sqrt.rn.f32 	%f71, %f70;
-	rcp.rn.f32 	%f72, %f71;
-	mul.f32 	%f84, %f61, %f72;
-	mul.f32 	%f85, %f64, %f72;
-	mul.f32 	%f86, %f67, %f72;
+	cvt.rn.f32.u16	%f68, %rs9;
+	div.rn.f32 	%f69, %f68, 0f437F0000;
+	fma.rn.f32 	%f70, %f69, 0f40000000, 0fBF800000;
+	mul.f32 	%f71, %f67, %f67;
+	fma.rn.f32 	%f72, %f64, %f64, %f71;
+	fma.rn.f32 	%f73, %f70, %f70, %f72;
+	sqrt.rn.f32 	%f74, %f73;
+	rcp.rn.f32 	%f75, %f74;
+	mul.f32 	%f87, %f64, %f75;
+	mul.f32 	%f88, %f67, %f75;
+	mul.f32 	%f89, %f70, %f75;
 
 BB0_4:
-	mul.f32 	%f73, %f6, %f85;
-	fma.rn.f32 	%f74, %f5, %f84, %f73;
-	fma.rn.f32 	%f14, %f7, %f86, %f74;
-	setp.leu.f32	%p3, %f87, 0f00000000;
+	mul.f32 	%f76, %f6, %f88;
+	fma.rn.f32 	%f77, %f5, %f87, %f76;
+	fma.rn.f32 	%f14, %f7, %f89, %f77;
+	setp.leu.f32	%p3, %f90, 0f00000000;
 	@%p3 bra 	BB0_6;
 
-	fma.rn.f32 	%f75, %f14, 0f3F000000, 0f3F000000;
-	mov.f32 	%f76, 0f3B808081;
-	max.f32 	%f87, %f75, %f76;
+	fma.rn.f32 	%f78, %f14, 0f3F000000, 0f3F000000;
+	mov.f32 	%f79, 0f3B808081;
+	max.f32 	%f90, %f78, %f79;
 
 BB0_6:
 	ld.global.v2.u32 	{%r71, %r72}, [pixelID];
@@ -293,17 +296,17 @@ BB0_6:
 	// inline asm
 	call (%rd73), _rt_buffer_get_64, (%rd74, %r18, %r17, %rd75, %rd76, %rd55, %rd55);
 	// inline asm
-	fma.rn.f32 	%f77, %f5, 0f3F000000, 0f3F000000;
-	mul.f32 	%f78, %f77, 0f437F0000;
-	cvt.rzi.u32.f32	%r75, %f78;
-	fma.rn.f32 	%f79, %f6, 0f3F000000, 0f3F000000;
-	mul.f32 	%f80, %f79, 0f437F0000;
-	cvt.rzi.u32.f32	%r76, %f80;
-	fma.rn.f32 	%f81, %f7, 0f3F000000, 0f3F000000;
-	mul.f32 	%f82, %f81, 0f437F0000;
-	cvt.rzi.u32.f32	%r77, %f82;
-	mul.f32 	%f83, %f87, 0f437F0000;
-	cvt.rzi.u32.f32	%r78, %f83;
+	fma.rn.f32 	%f80, %f5, 0f3F000000, 0f3F000000;
+	mul.f32 	%f81, %f80, 0f437F0000;
+	cvt.rzi.u32.f32	%r75, %f81;
+	fma.rn.f32 	%f82, %f6, 0f3F000000, 0f3F000000;
+	mul.f32 	%f83, %f82, 0f437F0000;
+	cvt.rzi.u32.f32	%r76, %f83;
+	fma.rn.f32 	%f84, %f7, 0f3F000000, 0f3F000000;
+	mul.f32 	%f85, %f84, 0f437F0000;
+	cvt.rzi.u32.f32	%r77, %f85;
+	mul.f32 	%f86, %f90, 0f437F0000;
+	cvt.rzi.u32.f32	%r78, %f86;
 	cvt.u16.u32	%rs16, %r78;
 	cvt.u16.u32	%rs17, %r77;
 	cvt.u16.u32	%rs18, %r76;
@@ -318,7 +321,7 @@ BB0_1:
 	// inline asm
 	call (%rd59), _rt_buffer_get_64, (%rd21, %r18, %r19, %rd61, %rd62, %rd55, %rd55);
 	// inline asm
-	st.v4.f32 	[%rd59], {%f1, %f2, %f3, %f87};
+	st.v4.f32 	[%rd59], {%f2, %f3, %f4, %f90};
 
 BB0_7:
 	ret;

@@ -2,7 +2,7 @@
 #define BAKERY_META
 
 Texture2D bestFitNormalMap;
-float _IsFlipped;
+float _IsPerPixel;
 
 struct BakeryMetaInput
 {
@@ -19,7 +19,7 @@ struct v2f_bakeryMeta
     float4 pos      : SV_POSITION;
     float2 uv       : TEXCOORD0;
     float3 normal   : TEXCOORD1;
-    float3 tangent  : TEXCOORD2;
+    float4 tangent  : TEXCOORD2;
     float3 binormal : TEXCOORD3;
 };
 
@@ -31,11 +31,13 @@ v2f_bakeryMeta vert_bakerymt (BakeryMetaInput v)
     o.normal = normalize(mul((float3x3)unity_ObjectToWorld, v.normal).xyz);
 
 #ifdef _TERRAIN_NORMAL_MAP
-    o.tangent = cross(o.normal, float3(0,0,1));
-    o.binormal = cross(o.normal, o.tangent) * -1;
+    o.tangent.xyz = cross(o.normal, float3(0,0,1));
+    o.binormal = cross(o.normal, o.tangent.xyz) * -1;
+    o.tangent.w = -1;
 #else
-    o.tangent = normalize(mul((float3x3)unity_ObjectToWorld, v.tangent.xyz).xyz);
-    o.binormal = cross(o.normal, o.tangent) * v.tangent.w * _IsFlipped;
+    o.tangent.xyz = normalize(mul((float3x3)unity_ObjectToWorld, v.tangent.xyz).xyz);
+    o.binormal = cross(o.normal, o.tangent.xyz) * v.tangent.w;
+    o.tangent.w = v.tangent.w;
 #endif
 
     return o;
@@ -60,7 +62,10 @@ float3 EncodeNormalBestFit(float3 n)
 
 float3 TransformNormalMapToWorld(v2f_bakeryMeta i, float3 tangentNormalMap)
 {
-    float3x3 TBN = float3x3(normalize(i.tangent), normalize(i.binormal), normalize(i.normal));
+    float3 b = i.binormal;
+    if (_IsPerPixel > 0.0f) b = cross(i.normal, i.tangent.xyz) * i.tangent.w;
+
+    float3x3 TBN = float3x3(normalize(i.tangent.xyz), normalize(b), normalize(i.normal));
     return mul(tangentNormalMap, TBN);
 }
 

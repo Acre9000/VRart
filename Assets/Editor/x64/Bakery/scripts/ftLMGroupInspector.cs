@@ -15,6 +15,7 @@ public class ftLMGroupInspector : UnityEditor.Editor
     SerializedProperty ftraceRenderMode;
     SerializedProperty ftraceRenderDirMode;
     SerializedProperty ftraceAtlasPacker;
+    SerializedProperty ftraceHoleFilling;
     SerializedProperty ftraceBitmask;
     SerializedProperty ftraceThickness;
     SerializedProperty ftraceSSS;
@@ -37,6 +38,7 @@ public class ftLMGroupInspector : UnityEditor.Editor
         ftraceRenderMode = serializedObject.FindProperty("renderMode");
         ftraceRenderDirMode = serializedObject.FindProperty("renderDirMode");
         ftraceAtlasPacker = serializedObject.FindProperty("atlasPacker");
+        ftraceHoleFilling = serializedObject.FindProperty("holeFilling");
         ftraceBitmask = serializedObject.FindProperty("bitmask");
         //ftraceThickness = serializedObject.FindProperty("aoIsThickness");
         ftraceSSS = serializedObject.FindProperty("computeSSS");
@@ -74,6 +76,11 @@ public class ftLMGroupInspector : UnityEditor.Editor
         EditorGUILayout.PropertyField(ftraceRenderDirMode, new GUIContent("Directional mode", ""));
 
         EditorGUILayout.PropertyField(ftraceAtlasPacker, new GUIContent("Atlas packer", ""));
+
+        if (ftraceAtlasPacker.intValue != (int)BakeryLightmapGroup.AtlasPacker.Default)
+        {
+            EditorGUILayout.PropertyField(ftraceHoleFilling, new GUIContent("Hole filling", ""));
+        }
 
         ftraceBitmask.intValue = EditorGUILayout.MaskField(new GUIContent("Bitmask", "Lights only affect renderers with overlapping bits"), ftraceBitmask.intValue, selStrings);
 

@@ -1,5 +1,8 @@
 #if UNITY_EDITOR
 
+// Disable 'obsolete' warnings
+#pragma warning disable 0618
+
 using UnityEngine;
 using UnityEditor;
 using System;
@@ -20,6 +23,10 @@ public class ftDefine
         {
             if (defines.Length > 0) defines += ";";
             defines += "BAKERY_INCLUDED";
+            if (!defines.Contains("BAKERY_NOREIMPORT"))
+            {
+                defines += ";BAKERY_NOREIMPORT";
+            }
             PlayerSettings.SetScriptingDefineSymbolsForGroup(platform, defines);
         }
     }

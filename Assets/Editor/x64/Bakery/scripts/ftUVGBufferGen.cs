@@ -533,7 +533,7 @@ public class ftUVGBufferGen
         return tex;
     }
 
-    static public void Dilate(Texture2D albedo)
+    static public void Dilate(Texture2D albedo, int pass = 0)
     {
         if (matDilate == null) matDilate = new Material(Shader.Find("Hidden/ftDilate"));
 
@@ -550,12 +550,12 @@ public class ftUVGBufferGen
         }
 
         GL.sRGBWrite = albedo.format == TextureFormat.RGBA32;
-        Graphics.Blit(albedo, rt, matDilate);
+        Graphics.Blit(albedo, rt, matDilate, pass);
 
         for(int i=0; i<8; i++)
         {
-            Graphics.Blit(rt, rt2, matDilate);
-            Graphics.Blit(rt2, rt, matDilate);
+            Graphics.Blit(rt, rt2, matDilate, pass);
+            Graphics.Blit(rt2, rt, matDilate, pass);
         }
 
         Graphics.SetRenderTarget(rt);

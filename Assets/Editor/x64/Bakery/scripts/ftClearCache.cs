@@ -19,6 +19,9 @@ public class ftClearCache
 
         var defaultPath = System.Environment.GetEnvironmentVariable("TEMP", System.EnvironmentVariableTarget.Process) + "\\frender";
 
+        var gstorage = ftRenderLightmap.FindGlobalStorage();
+        if (gstorage != null && gstorage.renderSettingsTempPath != "") defaultPath = gstorage.renderSettingsTempPath;
+
         var sceneCount = SceneManager.sceneCount;
         for(int i=0; i<sceneCount; i++)
         {
@@ -34,7 +37,7 @@ public class ftClearCache
 
         foreach(var tempPath in list)
         {
-            if (EditorUtility.DisplayDialog("Bakery", "Clear cache from '" + tempPath + "'?", "OK", "Cancel"))
+            if (Directory.Exists(tempPath) && EditorUtility.DisplayDialog("Bakery", "Clear cache from '" + tempPath + "'?", "OK", "Cancel"))
             {
                 var files = Directory.GetFiles(tempPath, "*.lz4");
                 Clear(files);

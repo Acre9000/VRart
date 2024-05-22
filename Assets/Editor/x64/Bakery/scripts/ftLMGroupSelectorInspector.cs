@@ -12,6 +12,7 @@ using UnityEditor.SceneManagement;
 [CanEditMultipleObjects]
 public class ftLMGroupSelectorInspector : UnityEditor.Editor
 {
+    SerializedProperty ftraceActive;
     SerializedProperty ftraceAsset;
     SerializedProperty ftraceOverride;
     SerializedProperty ftraceResolution;
@@ -28,6 +29,7 @@ public class ftLMGroupSelectorInspector : UnityEditor.Editor
 
     void OnEnable()
     {
+        ftraceActive = serializedObject.FindProperty("active");
         ftraceAsset = serializedObject.FindProperty("lmgroupAsset");
         ftraceOverride = serializedObject.FindProperty("instanceResolutionOverride");
         ftraceResolution = serializedObject.FindProperty("instanceResolution");
@@ -51,7 +53,10 @@ public class ftLMGroupSelectorInspector : UnityEditor.Editor
         {
             EditorGUILayout.LabelField("These lightmap parameters affect the object and its children");
 
+            EditorGUILayout.PropertyField(ftraceActive, new GUIContent("Enabled", "Take this group into account when baking. Objects will be auto-atlased as usual, if this option is not set."));
+
             EditorGUI.BeginChangeCheck();
+
             var selectedLMGroup = EditorGUILayout.ObjectField(new GUIContent("Lightmap group", "Select ftrace lightmap group asset"),
                     ftraceAsset.objectReferenceValue, typeof(BakeryLightmapGroup), false);
             var changed = EditorGUI.EndChangeCheck();

@@ -26,6 +26,18 @@ public class ftBuildLights
     static Dictionary<string, bool> lightSaved;
     static bool allowOverwrite = false;
 
+    struct SavedLight
+    {
+        public float totalWorldAreaHalf;
+        public int lmid;
+        public int samples;
+        public string fname, name;
+    }
+
+    static List<SavedLight> savedLights;
+    internal static HashSet<BakeryLightMesh> appended;
+    static int areaLightCounter;
+
     static System.Type texUtil;
     static MethodInfo texUtil_GetUsage;
 
@@ -34,6 +46,10 @@ public class ftBuildLights
         allowOverwrite = overwrite;
         tex2hash = new Dictionary<UnityEngine.Object, int>();
         lightSaved = new Dictionary<string, bool>();
+
+        savedLights = new List<SavedLight>();
+        appended = new HashSet<BakeryLightMesh>();
+        areaLightCounter = -2;
     }
 
     static public void BuildDirectLight(BakeryDirectLight obj, int SAMPLES, bool ignoreNormal = false, string outName = "direct.bin")
@@ -83,7 +99,7 @@ public class ftBuildLights
                 tex2hash[tex] = texHash;
                 existingTexHash = texHash;
             }
-            texName = "cookie_" + existingTexHash + ".dds";
+            texName = GetTempTexName(tex, "cookie_");
 
             // Save original texture to RGBA32F DDS
             if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Direct3D11)
@@ -400,10 +416,45 @@ public class ftBuildLights
 
         var folder = ftBuildGraphics.scenePath;//Directory.GetParent(Application.dataPath).FullName + "/frender";
         if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-        var f = new BinaryWriter(File.Open(folder + "/" + outName, FileMode.Create));
-        if (ftRenderLightmap.clientMode) ftClient.serverFileList.Add(outName);
+        BinaryWriter f = null;
 
-        f.Write(1);
+        bool append = false;
+        int lightToAppendID = 0;
+        float appendArea = 0;
+        if (ftRenderLightmap.batchAreaLightSampleLimit > 0)
+        {
+            for(int i=0; i<savedLights.Count; i++)
+            {
+                if (obj.lmid != savedLights[i].lmid) continue; // lmid must be computed at this point
+
+                if (savedLights[i].samples + obj.samples > ftRenderLightmap.batchAreaLightSampleLimit) continue;
+
+                append = true;
+                lightToAppendID = i;
+
+                int newSamples = savedLights[i].samples + obj.samples;
+                appendArea = savedLights[i].totalWorldAreaHalf;
+
+                f = new BinaryWriter(File.Open(folder + "/" + savedLights[i].fname, FileMode.Open, FileAccess.Write));
+                f.BaseStream.Seek(8, SeekOrigin.Begin);
+                f.Write(obj.shadowmaskFalloff ? -newSamples : newSamples);
+                f.BaseStream.Seek(12 + (obj.texture != null ? 9 : 6)*4 * savedLights[i].samples, SeekOrigin.Begin);
+
+                var sl = savedLights[i];
+                sl.samples = newSamples;
+                savedLights[i] = sl;
+
+                //Debug.LogError("Append "+obj.name+" to "+savedLights[i].name);
+            }
+        }
+
+        if (!append)
+        {
+            f = new BinaryWriter(File.Open(folder + "/" + outName, FileMode.Create));
+            if (ftRenderLightmap.clientMode) ftClient.serverFileList.Add(outName);
+        }
+
+        if (!append) f.Write(1);
 
         Mesh mesh = null;
         var tform = obj.transform;
@@ -616,8 +667,8 @@ public class ftBuildLights
 #endif
 
 
-        f.Write(obj.shadowmask ? 0 : obj.samples2);
-        f.Write(obj.shadowmaskFalloff ? -SAMPLES : SAMPLES);
+        if (!append) f.Write(obj.shadowmask ? 0 : obj.samples2);
+        if (!append) f.Write(obj.shadowmaskFalloff ? -SAMPLES : SAMPLES);
         Vector3 trinormal;
         for(int sample=0; sample<SAMPLES; sample++)
         {
@@ -712,7 +763,7 @@ public class ftBuildLights
         }
 
         f.Write(obj.cutoff);
-        f.Write(totalWorldArea * 0.5f);
+        f.Write(totalWorldArea * 0.5f + appendArea);
 
         #if SRGBCONVERT
             f.Write(obj.color.linear.r * obj.intensity);
@@ -732,6 +783,40 @@ public class ftBuildLights
         }
 
         f.Close();
+
+        if (ftRenderLightmap.batchAreaLightSampleLimit > 0)
+        {
+            if (append)
+            {
+                var sl = savedLights[lightToAppendID];
+                sl.totalWorldAreaHalf += totalWorldArea * 0.5f;
+                savedLights[lightToAppendID]  = sl;
+            }
+            else
+            {
+                var sl = new SavedLight();
+                sl.samples = obj.samples;
+                sl.fname = outName;
+                sl.name = obj.name;
+                sl.totalWorldAreaHalf = totalWorldArea * 0.5f;
+                sl.lmid = obj.lmid;
+                savedLights.Add(sl);
+            }
+        }
+
+        if (!append)
+        {
+            obj.lmid = areaLightCounter;
+            areaLightCounter--;
+            //Debug.LogError("Set LMID to " + obj.lmid + " for "+obj.name);
+        }
+        else
+        {
+            obj.lmid = savedLights[lightToAppendID].lmid;
+            //Debug.LogError("Copied LMID to " + obj.name + " from " + savedLights[lightToAppendID].name+ " ("+obj.lmid+")");
+        }
+
+        if (append) appended.Add(obj);
 
         return totalWorldArea * 0.5f;
     }

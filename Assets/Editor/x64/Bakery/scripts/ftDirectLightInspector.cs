@@ -25,6 +25,8 @@ public class ftDirectLightInspector : UnityEditor.Editor
 
     ftLightmapsStorage storage;
 
+    static bool projectionMode = false;
+
     bool isHDRP = false;
 
     public enum BakeWhat
@@ -34,6 +36,30 @@ public class ftDirectLightInspector : UnityEditor.Editor
         IndirectAndShadowmask = 2,
         DirectIndirectShadowmask = 3
     };
+
+    int texCached = -1;
+
+    void TestPreviewRefreshProperty(ref int cached, int newVal)
+    {
+        if (cached >= 0)
+        {
+            if (cached != newVal)
+            {
+                BakerySkyLight.lightsChanged = 2;
+            }
+        }
+        cached = newVal;
+    }
+
+    void TestPreviewRefreshProperty(ref int cached, UnityEngine.Object newVal)
+    {
+        if (newVal == null)
+        {
+            TestPreviewRefreshProperty(ref cached, 0);
+            return;
+        }
+        TestPreviewRefreshProperty(ref cached, newVal.GetInstanceID());
+    }
 
     static public string[] directContributionOptions = new string[] {"Direct And Indirect", "Indirect Only", "Shadowmask and Indirect", "Direct, Indirect, Shadowmask (custom lighting only)"};
     static public string[] directContributionIndirectOptions = new string[] {"Direct And Indirect", "Indirect Only", "Shadowmask and Indirect (not applicable in Indirect mode)", "Direct, Indirect, Shadowmask (not applicable in Indirect mode)"};
@@ -138,11 +164,84 @@ public class ftDirectLightInspector : UnityEditor.Editor
         }
     }
 
-    public override void OnInspectorGUI() {
+    protected virtual void OnSceneGUI()
+    {
+        if (projectionMode)
+        {
+            var obj = target as BakeryDirectLight;
+            var tform = obj.transform;
+
+            Vector3 normal = tform.forward;
+            Vector3 binormal, tangent;
+            if(Mathf.Abs(normal.x) > Mathf.Abs(normal.z))
+            {
+                binormal = new Vector3(-normal.y, normal.x, 0);
+            }
+            else
+            {
+                binormal = new Vector3(0, -normal.z, normal.y);
+            }
+            binormal = binormal.normalized;
+            tangent = Vector3.Cross(binormal, normal);
+            var rot = Quaternion.LookRotation(normal, -binormal);
+            var pos = tangent * -obj.cloudShadowOffsetX/obj.cloudShadowTilingX + binormal * -obj.cloudShadowOffsetY/obj.cloudShadowTilingY;
+            pos += tangent * 0.5f/obj.cloudShadowTilingX;
+            pos += binormal * 0.5f/obj.cloudShadowTilingY;
+            var ntangent = tangent;
+            var nbinormal = binormal;
+
+            var mtx = new Matrix4x4();
+            tangent /= obj.cloudShadowTilingX;
+            binormal /= obj.cloudShadowTilingY;
+            float depth = 1000.0f;
+            normal *= depth;
+            //pos += normal * depth * 0.5f;
+            mtx.SetColumn(0, new Vector4(tangent.x, tangent.y, tangent.z, 0));
+            mtx.SetColumn(1, new Vector4(binormal.x, binormal.y, binormal.z, 0));
+            mtx.SetColumn(2, new Vector4(normal.x, normal.y, normal.z, 0));
+            mtx.SetColumn(3, new Vector4(pos.x, pos.y, pos.z, 1.0f));
+
+            Handles.color = Color.red;
+            Handles.matrix = mtx;// * Matrix4x4.Translate(Vector3.one * 0.5f);
+            Handles.DrawWireCube(Vector3.zero, Vector3.one);
+            Handles.matrix = Matrix4x4.identity;
+
+            EditorGUI.BeginChangeCheck();
+            var newPos = Handles.PositionHandle(pos, rot);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(obj, "Move directional light projection");
+                
+                newPos -= ntangent * 0.5f/obj.cloudShadowTilingX;
+                newPos -= nbinormal * 0.5f/obj.cloudShadowTilingY;
+                obj.cloudShadowOffsetX = Vector3.Dot(ntangent, newPos) * -obj.cloudShadowTilingX;
+                obj.cloudShadowOffsetY = Vector3.Dot(nbinormal, newPos) * -obj.cloudShadowTilingY;
+                Shader.SetGlobalVector("_BakeryProjectionTilingOffset", new Vector4(obj.cloudShadowTilingX, obj.cloudShadowTilingY, obj.cloudShadowOffsetX, obj.cloudShadowOffsetY));
+                if (BakeryDirectLight.lightsChanged == 0) BakeryDirectLight.lightsChanged = 1;
+            }
+
+            EditorGUI.BeginChangeCheck();
+            float size = HandleUtility.GetHandleSize(pos);
+            var newScale = Handles.ScaleHandle(new Vector3(obj.cloudShadowTilingX, obj.cloudShadowTilingY, 0), pos - tform.up * size * 0.25f, rot, -size);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(obj, "Scale directional light projection");
+                obj.cloudShadowTilingX = newScale.x;
+                obj.cloudShadowTilingY = newScale.y;
+                Shader.SetGlobalVector("_BakeryProjectionTilingOffset", new Vector4(obj.cloudShadowTilingX, obj.cloudShadowTilingY, obj.cloudShadowOffsetX, obj.cloudShadowOffsetY));
+                if (BakeryDirectLight.lightsChanged == 0) BakeryDirectLight.lightsChanged = 1;
+            }
+        }
+    }
+
+    public override void OnInspectorGUI()
+    {
         //if (showFtrace)
         //{
             OnEnable();
             serializedObject.Update();
+
+            TestPreviewRefreshProperty(ref texCached, ftraceLightTexture.objectReferenceValue);
 
             EditorGUILayout.PropertyField(ftraceLightColor, new GUIContent("Color", "Color of the light"));
             EditorGUILayout.PropertyField(ftraceLightIntensity, new GUIContent("Intensity", "Color multiplier (Lux / Pi)"));
@@ -234,10 +333,135 @@ public class ftDirectLightInspector : UnityEditor.Editor
             EditorGUILayout.PropertyField(ftraceLightTexture, new GUIContent("Texture projection", "Tiled projected texture"));
             if (ftraceLightTexture.objectReferenceValue != null)
             {
+                var obj = target as BakeryDirectLight;
+
                 EditorGUILayout.PropertyField(ftraceLightCSTilingX, new GUIContent("Tiling U", "Cloud shadow U tiling"));
                 EditorGUILayout.PropertyField(ftraceLightCSTilingY, new GUIContent("Tiling V", "Cloud shadow V tiling"));
                 EditorGUILayout.PropertyField(ftraceLightCSOffsetX, new GUIContent("Offset U", "Cloud shadow U tiling"));
                 EditorGUILayout.PropertyField(ftraceLightCSOffsetY, new GUIContent("Offset V", "Cloud shadow V tiling"));
+
+                if (GUILayout.Button("Tweak projection in Scene View"))
+                {
+                    ftSceneView.ToggleProjMode();
+                    projectionMode = ftSceneView.enabled;
+
+                    UnityEditor.EditorWindow.GetWindow<SceneView>();
+                    var lastView = SceneView.lastActiveSceneView;
+                    if (lastView == null)
+                    {
+                        Debug.LogError("Can't get lastActiveSceneView");
+                    }
+                    else
+                    {
+                        var cam = lastView.camera;
+                        if (cam == null)
+                        {
+                            Debug.LogError("Can't get sceneView camera");
+                        }
+                        else
+                        {
+                            var camTform = cam.transform;
+                            var tform = obj.transform;
+                        }
+                    }
+                }
+
+                if (projectionMode)
+                {
+                    EditorGUILayout.Space();
+                    if (GUILayout.Button("Render reference frame"))
+                    {
+                        float far = 1000.0f;
+                        int width = 512;
+                        int height = 512;
+
+                        var g = new GameObject();
+                        g.name = "TempCamera";
+                        var cam = g.AddComponent<Camera>();
+                        cam.aspect = obj.cloudShadowTilingY / obj.cloudShadowTilingX;
+                        cam.farClipPlane = far;
+                        cam.orthographic = true;
+                        cam.orthographicSize = (1.0f/obj.cloudShadowTilingY) * 0.5f;
+                        //cam.cullingMask = renderMapLayers;
+
+                        var tform = obj.transform;
+                        Vector3 normal = tform.forward;
+                        Vector3 binormal, tangent;
+                        if(Mathf.Abs(normal.x) > Mathf.Abs(normal.z))
+                        {
+                            binormal = new Vector3(-normal.y, normal.x, 0);
+                        }
+                        else
+                        {
+                            binormal = new Vector3(0, -normal.z, normal.y);
+                        }
+                        binormal = binormal.normalized;
+                        tangent = Vector3.Cross(binormal, normal);
+                        var rot = Quaternion.LookRotation(normal, -binormal);
+                        var pos = tangent * -obj.cloudShadowOffsetX/obj.cloudShadowTilingX + binormal * -obj.cloudShadowOffsetY/obj.cloudShadowTilingY;
+                        pos += tangent * 0.5f/obj.cloudShadowTilingX;
+                        pos += binormal * 0.5f/obj.cloudShadowTilingY;
+
+                        cam.transform.position = pos - normal * far*0.5f;
+                        cam.transform.rotation = rot;
+
+                        var rt = new RenderTexture(width, height, 16, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
+                        cam.targetTexture = rt;
+                        cam.enabled = false;
+#if UNITY_2017_1_OR_NEWER
+                        cam.cameraType = CameraType.Reflection; // trick for SRP
+#endif
+                        cam.Render();
+
+                        var tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+                        Graphics.SetRenderTarget(rt);
+                        tex.ReadPixels(new Rect(0, 0, width, height), 0, 0, false);
+                        tex.Apply();
+
+                        int index, indexA, indexB;
+                        int minSwapped;
+                        Color a, b;
+                        var pixels = tex.GetPixels();
+                        for(int y=0; y<height; y++)
+                        {
+                            index = y*width;
+                            minSwapped = 16384;
+                            for(int x=0; x<width; x++)
+                            {
+                                indexA = index+x;
+                                if (minSwapped == indexA) break;
+                                indexB = index+(width-1)-x;
+                                a = pixels[indexA];
+                                b = pixels[indexB];
+                                pixels[indexA] = b;
+                                pixels[indexB] = a;
+                                minSwapped = indexB;
+                            }
+                        }
+                        tex.SetPixels(pixels);
+
+                        RenderTexture.active = null;
+                        rt.Release();
+
+                        byte[] _bytes = tex.EncodeToPNG();
+                        var path = EditorUtility.SaveFilePanelInProject("Save texture", "", "png", "");
+                        if (path.Length != 0)
+                        {
+                            System.IO.File.WriteAllBytes(path, _bytes);
+                        }
+
+                        DestroyImmediate(g);
+
+                        AssetDatabase.Refresh();
+                    }
+
+                    Shader.SetGlobalTexture("_BakeryProjectionMap", ftraceLightTexture.objectReferenceValue as Texture2D);
+                    Shader.SetGlobalVector("_BakeryProjectionDir", obj.gameObject.transform.forward);
+                    Shader.SetGlobalVector("_BakeryProjectionTilingOffset", new Vector4(obj.cloudShadowTilingX, obj.cloudShadowTilingY, obj.cloudShadowOffsetX, obj.cloudShadowOffsetY));
+                }
+
+                EditorGUILayout.Space();
+                EditorGUILayout.Space();
             }
 
             serializedObject.ApplyModifiedProperties();

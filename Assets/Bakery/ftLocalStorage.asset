@@ -14,9 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifiedAssetPathList:
   - Assets/Bakery/examples/content/sponza/sponza.FBX
-  - Assets/Andres/ExhibitionSpace.fbx
-  - Assets/Students/tob/BIRD CAGE 3 FINAL.fbx
-  - Assets/Students/zahra/untitled.blend
-  - Assets/Students/tob/BIRD CAGE 1 FINAL.fbx
-  - Assets/Students/tob/BIRD CAGE 2 FINAL.fbx
-  modifiedAssetPaddingHash: d6a958ff54d8d20342dd894b333614da0cf43a06c2c4d890
+  modifiedAssetPaddingHash: d6a958ff

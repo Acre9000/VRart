@@ -10,6 +10,8 @@ float bakeryLightmapMode;
 
 //#define BAKERY_SSBUMP
 
+#define BAKERY_LMSPECOCCLUSION_MUL 10
+
 //#define BAKERY_COMPRESSED_VOLUME_RGBM
 
 // can't fit vertexLM SH to sm3_0 interpolators
@@ -35,6 +37,10 @@ float bakeryLightmapMode;
 
 #ifndef UNITY_SHOULD_SAMPLE_SH
     #undef BAKERY_PROBESHNONLINEAR
+#endif
+
+#ifndef BAKERY_LMSPEC
+    #undef BAKERY_LMSPECOCCLUSION
 #endif
 
 #if defined(BAKERY_RNM) && defined(BAKERY_LMSPEC)
@@ -759,6 +765,7 @@ void BakeryMonoSH(inout float3 diffuseColor, inout float3 specularColor, float2 
 half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
 {
     FRAGMENT_SETUP(s)
+    UNITY_SETUP_INSTANCE_ID(i);
 #if UNITY_OPTIMIZE_TEXCUBELOD
     s.reflUVW = i.reflUVW;
 #endif
@@ -810,9 +817,9 @@ half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
         #else
             L0 = tex0.xyz;
         #endif
-        L1x = tex1.xyz * L0;
-        L1y = tex2.xyz * L0;
-        L1z = tex3.xyz * L0;
+        L1x = tex1.xyz * L0 * 2;
+        L1y = tex2.xyz * L0 * 2;
+        L1z = tex3.xyz * L0 * 2;
     #else
         float4 tex0, tex1, tex2;
         float3 L0, L1x, L1y, L1z;
@@ -843,7 +850,11 @@ half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
         half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
         half spec = GGXTerm(nh, roughness);
         float3 sh = L0 + dominantDir.x * L1x + dominantDir.y * L1y + dominantDir.z * L1z;
-        gi.indirect.specular += max(spec * sh, 0.0);
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular *= saturate(dot(spec * sh, BAKERY_LMSPECOCCLUSION_MUL));
+        #else
+            gi.indirect.specular += max(spec * sh, 0.0);
+        #endif
     #endif
 
 #elif BAKERY_PROBESHNONLINEAR
@@ -858,7 +869,12 @@ half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
 #ifndef BAKERY_MONOSH
     if (bakeryLightmapMode == BAKERYMODE_DEFAULT)
     {
-        gi.indirect.specular += BakeryDirectionalLightmapSpecular(i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness) * gi.indirect.diffuse;
+        float3 spec = BakeryDirectionalLightmapSpecular(i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness) * gi.indirect.diffuse;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular *= saturate(dot(spec, BAKERY_LMSPECOCCLUSION_MUL));
+        #else
+            gi.indirect.specular += spec;
+        #endif
     }
 #endif
 #endif
@@ -876,10 +892,18 @@ half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
             #else
                 BakeryVertexLMDirection(gi.indirect.diffuse, gi.indirect.specular, i.lightDirection, i.tangentToWorldAndPackedData[2].xyz, s.normalWorld, s.eyeVec, s.smoothness);
             #endif
-            gi.indirect.specular += prevSpec;
+            #ifdef BAKERY_LMSPECOCCLUSION
+                gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+            #else
+                gi.indirect.specular += prevSpec;
+            #endif
         #elif defined (BAKERY_VERTEXLMSH)
             BakeryVertexLMSH(gi.indirect.diffuse, gi.indirect.specular, i.shL1x, i.shL1y, i.shL1z, s.normalWorld, s.eyeVec, s.smoothness);
-            gi.indirect.specular += prevSpec;
+            #ifdef BAKERY_LMSPECOCCLUSION
+                gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+            #else
+                gi.indirect.specular += prevSpec;
+            #endif
         #endif
     }
 #endif
@@ -900,7 +924,11 @@ half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
 
         float3 prevSpec = gi.indirect.specular;
         BakeryRNM(gi.indirect.diffuse, gi.indirect.specular, i.ambientOrLightmapUV.xy, normalMap, s.smoothness, eyeVecT);
-        gi.indirect.specular += prevSpec;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+        #else
+            gi.indirect.specular += prevSpec;
+        #endif
     }
 #endif
 
@@ -911,7 +939,11 @@ half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
     {
         float3 prevSpec = gi.indirect.specular;
         BakerySH(gi.indirect.diffuse, gi.indirect.specular, i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness);
-        gi.indirect.specular += prevSpec;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+        #else
+            gi.indirect.specular += prevSpec;
+        #endif
     }
 #endif
 
@@ -921,7 +953,11 @@ half4 bakeryFragForwardBase(BakeryVertexOutputForwardBase i) : SV_Target
     {
         float3 prevSpec = gi.indirect.specular;
         BakeryMonoSH(gi.indirect.diffuse, gi.indirect.specular, i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness);
-        gi.indirect.specular += prevSpec;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+        #else
+            gi.indirect.specular += prevSpec;
+        #endif
     }
 #endif
 #endif
@@ -1092,6 +1128,7 @@ struct BakeryVertexOutputDeferred
 #endif
 #endif
 
+    UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
@@ -1100,6 +1137,7 @@ BakeryVertexOutputDeferred bakeryVertDeferred(BakeryVertexInput v)
     UNITY_SETUP_INSTANCE_ID(v);
     BakeryVertexOutputDeferred o;
     UNITY_INITIALIZE_OUTPUT(BakeryVertexOutputDeferred, o);
+    UNITY_TRANSFER_INSTANCE_ID(v, o);
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
     float4 posWorld = mul(unity_ObjectToWorld, v.vertex);
@@ -1202,6 +1240,7 @@ void bakeryFragDeferred(
 #endif
 
     FRAGMENT_SETUP(s)
+    UNITY_SETUP_INSTANCE_ID(i);
 #if UNITY_OPTIMIZE_TEXCUBELOD
         s.reflUVW = i.reflUVW;
 #endif
@@ -1250,9 +1289,9 @@ void bakeryFragDeferred(
         #else
             L0 = tex0.xyz;
         #endif
-        L1x = tex1.xyz * L0;
-        L1y = tex2.xyz * L0;
-        L1z = tex3.xyz * L0;
+        L1x = tex1.xyz * L0 * 2;
+        L1y = tex2.xyz * L0 * 2;
+        L1z = tex3.xyz * L0 * 2;
     #else
         float4 tex0, tex1, tex2;
         float3 L0, L1x, L1y, L1z;
@@ -1283,7 +1322,11 @@ void bakeryFragDeferred(
         half roughness = PerceptualRoughnessToRoughness(perceptualRoughness);
         half spec = GGXTerm(nh, roughness);
         float3 sh = L0 + dominantDir.x * L1x + dominantDir.y * L1y + dominantDir.z * L1z;
-        gi.indirect.specular += max(spec * sh, 0.0);
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular *= saturate(dot(spec * sh, BAKERY_LMSPECOCCLUSION_MUL));
+        #else
+            gi.indirect.specular += max(spec * sh, 0.0);
+        #endif
     #endif
 
 #elif BAKERY_PROBESHNONLINEAR
@@ -1298,7 +1341,12 @@ void bakeryFragDeferred(
 #ifndef BAKERY_MONOSH
     if (bakeryLightmapMode == BAKERYMODE_DEFAULT)
     {
-        gi.indirect.specular += BakeryDirectionalLightmapSpecular(i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness) * gi.indirect.diffuse;
+        float3 spec = BakeryDirectionalLightmapSpecular(i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness) * gi.indirect.diffuse;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular *= saturate(dot(spec, BAKERY_LMSPECOCCLUSION_MUL));
+        #else
+            gi.indirect.specular += spec;
+        #endif
     }
 #endif
 #endif
@@ -1316,10 +1364,18 @@ void bakeryFragDeferred(
             #else
                 BakeryVertexLMDirection(gi.indirect.diffuse, gi.indirect.specular, i.lightDirection, i.tangentToWorldAndPackedData[2].xyz, s.normalWorld, s.eyeVec, s.smoothness);
             #endif
-            gi.indirect.specular += prevSpec;
+            #ifdef BAKERY_LMSPECOCCLUSION
+                gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+            #else
+                gi.indirect.specular += prevSpec;
+            #endif
         #elif defined (BAKERY_VERTEXLMSH)
             BakeryVertexLMSH(gi.indirect.diffuse, gi.indirect.specular, i.shL1x, i.shL1y, i.shL1z, s.normalWorld, s.eyeVec, s.smoothness);
-            gi.indirect.specular += prevSpec;
+            #ifdef BAKERY_LMSPECOCCLUSION
+                gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+            #else
+                gi.indirect.specular += prevSpec;
+            #endif
         #endif
     }
 #endif
@@ -1340,7 +1396,11 @@ void bakeryFragDeferred(
 
         float3 prevSpec = gi.indirect.specular;
         BakeryRNM(gi.indirect.diffuse, gi.indirect.specular, i.ambientOrLightmapUV.xy, normalMap, s.smoothness, eyeVecT);
-        gi.indirect.specular += prevSpec;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+        #else
+            gi.indirect.specular += prevSpec;
+        #endif
     }
 #endif
 
@@ -1351,7 +1411,11 @@ void bakeryFragDeferred(
     {
         float3 prevSpec = gi.indirect.specular;
         BakerySH(gi.indirect.diffuse, gi.indirect.specular, i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness);
-        gi.indirect.specular += prevSpec;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+        #else
+            gi.indirect.specular += prevSpec;
+        #endif
     }
 #endif
 
@@ -1361,7 +1425,11 @@ void bakeryFragDeferred(
     {
         float3 prevSpec = gi.indirect.specular;
         BakeryMonoSH(gi.indirect.diffuse, gi.indirect.specular, i.ambientOrLightmapUV.xy, s.normalWorld, s.eyeVec, s.smoothness);
-        gi.indirect.specular += prevSpec;
+        #ifdef BAKERY_LMSPECOCCLUSION
+            gi.indirect.specular = saturate(dot(gi.indirect.specular, BAKERY_LMSPECOCCLUSION_MUL)) * prevSpec;
+        #else
+            gi.indirect.specular += prevSpec;
+        #endif
     }
 #endif
 #endif

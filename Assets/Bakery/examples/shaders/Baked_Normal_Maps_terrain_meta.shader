@@ -52,7 +52,7 @@ Shader "Bakery/Example terrain shader with Normal Meta Pass"
 
             // Include Bakery meta pass
             #define _TERRAIN_NORMAL_MAP // for terrains
-            #include"Bakery/BakeryMetaPass.cginc"
+            #include "../../BakeryMetaPass.cginc"
 
             float4 frag_customMeta (v2f_bakeryMeta i): SV_Target
             {

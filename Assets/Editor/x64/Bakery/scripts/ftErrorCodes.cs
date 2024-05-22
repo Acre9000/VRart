@@ -151,6 +151,7 @@ public class ftErrorCodes
         {ftClient.SERVERTASK_DENOISE6, "denoiser"},
         {ftClient.SERVERTASK_DENOISE7, "denoiser72"},
         {ftClient.SERVERTASK_DENOISEOIDN, "denoiserOIDN"},
+        {ftClient.SERVERTASK_DENOISEOIDN2, "denoiserOIDN2"},
 
         {ftClient.SERVERTASK_HF2HDR, "halffloat2hdr"},
         {ftClient.SERVERTASK_RGBA2TGA, "rgba2tga"},
@@ -255,6 +256,7 @@ public class ftErrorCodes
         if (app == "denoiser72") return TranslateDenoiser(code);
         if (app == "denoiserLegacy") return TranslateDenoiser(code);
         if (app == "denoiserOIDN") return TranslateDenoiser(code);
+        if (app == "denoiserOIDN2") return TranslateDenoiser(code);
         if (app == "halffloat2hdr") return TranslateH2H(code);
         if (app == "ies2tex") return TranslateI2T(code);
         if (app == "rgba2tga") return TranslateCombineMasks(code);

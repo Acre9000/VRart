@@ -22,6 +22,7 @@ public struct BakeryLightmapGroupPlain
     public string parentName;
     public int sceneLodLevel;
     public bool autoResolution;
+    public int holeFilling;
 };
 
 [CreateAssetMenu(menuName = "Bakery lightmap group")]
@@ -61,6 +62,13 @@ public class BakeryLightmapGroup : ScriptableObject
         Default = 0,
         xatlas = 1,
         Auto = 1000
+    };
+
+    public enum HoleFilling
+    {
+        Auto = 0,
+        Yes = 1,
+        No = 2
     };
 
     [SerializeField, Range(1, 8192)]
@@ -116,6 +124,9 @@ public class BakeryLightmapGroup : ScriptableObject
     [SerializeField]
     public AtlasPacker atlasPacker = AtlasPacker.Auto;
 
+    [SerializeField]
+    public HoleFilling holeFilling = HoleFilling.Auto;
+
     //[SerializeField]
     //public bool aoIsThickness = false;
 
@@ -168,6 +179,7 @@ public class BakeryLightmapGroup : ScriptableObject
         str.renderMode = (int)renderMode;
         str.renderDirMode = (int)renderDirMode;
         str.atlasPacker = (int)atlasPacker;
+        str.holeFilling = (int)holeFilling;
         str.computeSSS = computeSSS;
         str.sssSamples = sssSamples;
         str.sssDensity = sssDensity;

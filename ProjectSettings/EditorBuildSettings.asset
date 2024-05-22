@@ -14,9 +14,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Andres/Exhibition Space Lighting02.unity
     guid: 7d6f91bf6be92f94a8f9b9f83856e4ed
-  - enabled: 1
+  - enabled: 0
     path: Assets/Exhibition Space FPS.unity
     guid: ea36afd1f1177824cb6ac726c05dae0e
+  - enabled: 1
+    path: Assets/2024/Exhibition Space 2024.unity
+    guid: 814037582b3c68b4b9007a0b80430059
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
       type: 2}

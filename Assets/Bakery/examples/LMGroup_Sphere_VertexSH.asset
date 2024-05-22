@@ -30,6 +30,7 @@ MonoBehaviour:
   renderMode: 1000
   renderDirMode: 4
   atlasPacker: 1000
+  holeFilling: 0
   computeSSS: 0
   sssSamples: 16
   sssDensity: 10
@@ -42,4 +43,4 @@ MonoBehaviour:
   overridePath: 
   fixPos3D: 0
   voxelSize: {x: 1, y: 1, z: 1}
-  passedFilter: 6
+  passedFilter: 39
